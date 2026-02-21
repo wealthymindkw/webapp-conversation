@@ -115,124 +115,14 @@ div[class*="text-center"] p,
     display: none !important;
 }
 
-/* ===== 11. أيقونات المحادثة ===== */
+/* ===== 11. أيقونة الهيدر فقط → إطار ذهبي ===== */
+/* الأيقونات في المحادثة (بوت + مستخدم) تتحكم بها SVG files مباشرة */
 
-/* إخفاء SVG القديم والإيموجي في كل الأيقونات */
-.app-icon svg,
-.app-icon img,
-header svg,
-div[class*="border-b"] svg,
-div[class*="rounded-md"] > span,
-span.text-3xl {
-    display: none !important;
-    color: transparent !important;
-}
-
-/* --- أيقونة الهيدر (الشريط العلوي) → سهم ذهبي --- */
 .app-icon,
-header .w-8.h-8,
-header div[class*="shrink-0"],
-header div[class*="bg-primary"] {
-    background-image: none !important;
-    background-color: #000000 !important;
+header .app-icon {
     border: 2px solid #C5A059 !important;
     border-radius: 50% !important;
-    width: 36px !important;
-    height: 36px !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    position: relative !important;
     overflow: hidden !important;
-}
-
-.app-icon::after,
-header .w-8.h-8::after,
-header div[class*="shrink-0"]::after,
-header div[class*="bg-primary"]::after {
-    content: "❯" !important;
-    color: #C5A059 !important;
-    font-size: 16px !important;
-    font-weight: bold !important;
-    line-height: 1 !important;
-    display: block !important;
-}
-
-/* --- أيقونة البوت في المحادثة → صورتك الشخصية --- */
-/* كل أيقونة على يسار الرسالة = البوت */
-.chat-answer-container .answer-avatar,
-.chat-answer-container div[class*="avatar"],
-div[class*="answer"] > div[class*="avatar"],
-div[class*="answer"] > div[class*="shrink-0"],
-div[class*="chat-item"]:not([class*="user"]):not([class*="question"]) div[class*="shrink-0"]:first-child,
-/* استهداف مباشر للأيقونة الدائرية على اليسار في المحادثة */
-main div[class*="rounded-full"].shrink-0:not(:last-child),
-main div[class*="rounded-full"]:first-child,
-/* Dify specific */
-.chat-item .chat-item-avatar {
-    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-color: #000000 !important;
-    border: 2px solid #C5A059 !important;
-    border-radius: 50% !important;
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    flex-shrink: 0 !important;
-    overflow: hidden !important;
-}
-
-/* إخفاء أي SVG أو إيموجي داخل أيقونة البوت */
-.chat-answer-container div[class*="avatar"] svg,
-.chat-answer-container div[class*="avatar"] span,
-.chat-answer-container div[class*="avatar"] img,
-main div[class*="rounded-full"]:first-child svg,
-main div[class*="rounded-full"]:first-child span {
-    display: none !important;
-}
-
-/* --- أيقونة المستخدم في المحادثة → أيقونة شخص --- */
-.chat-question-container div[class*="avatar"],
-div[class*="question"] > div[class*="avatar"],
-div[class*="question"] > div[class*="shrink-0"],
-div[class*="chat-item"][class*="user"] div[class*="shrink-0"],
-/* الدائرة الزرقاء على اليمين */
-main div[class*="rounded-full"]:last-child,
-main div[class*="bg-primary"][class*="rounded-full"],
-.chat-item .user-avatar,
-div[class*="human"] div[class*="avatar"] {
-    background-image: none !important;
-    background-color: #111111 !important;
-    border: 2px solid #C5A05966 !important;
-    border-radius: 50% !important;
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-    position: relative !important;
-}
-
-div[class*="question"] > div[class*="avatar"]::after,
-div[class*="question"] > div[class*="shrink-0"]::after,
-main div[class*="rounded-full"]:last-child::after,
-main div[class*="bg-primary"][class*="rounded-full"]::after {
-    content: "👤" !important;
-    font-size: 18px !important;
-    line-height: 1 !important;
-    display: block !important;
-    -webkit-text-fill-color: initial !important;
-}
-
-/* إخفاء SVG داخل أيقونة المستخدم */
-div[class*="question"] > div[class*="avatar"] svg,
-main div[class*="bg-primary"][class*="rounded-full"] svg {
-    display: none !important;
 }
 
 /* ===== 12. ضبط الأحجام للموبايل ===== */
