@@ -1,3 +1,16 @@
-<svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.03647 1.5547C0.59343 0.890144 1.06982 0 1.86852 0H8V12L1.03647 1.5547Z" fill="#F3F4F6"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <clipPath id="circle-clip">
+      <circle cx="18" cy="18" r="17"/>
+    </clipPath>
+  </defs>
+  <!-- إطار ذهبي -->
+  <circle cx="18" cy="18" r="17.5" fill="none" stroke="#C5A059" stroke-width="1.5"/>
+  <!-- صورتك -->
+  <image 
+    href="https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png"
+    x="1" y="1" width="34" height="34"
+    clip-path="url(#circle-clip)"
+    preserveAspectRatio="xMidYMid slice"
+  />
 </svg>
