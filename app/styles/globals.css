@@ -161,7 +161,7 @@ div[class*="shrink-0 flex items-center justify-center"],
 div[class*="w-8 h-8"], 
 div[class*="w-10 h-10"] {
     /* 👇 امسح الجملة العربية وحط رابط صورتك بين القوسين 👇 */
-    background-image: url('حط_رابط_الصورة_هني') !important;
+    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
     background-size: cover !important;
     background-position: center !important;
     background-color: #000000 !important;
