@@ -2,129 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-@source "../../node_modules/streamdown/dist/index.js";
-
-:root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-
-  --primary-glow: conic-gradient(from 180deg at 50% 50%,
-      #16abff33 0deg,
-      #0885ff33 55deg,
-      #54d6ff33 120deg,
-      #0071ff33 160deg,
-      transparent 360deg);
-  --secondary-glow: radial-gradient(rgba(255, 255, 255, 1),
-      rgba(255, 255, 255, 0));
-
-  --tile-start-rgb: 239, 245, 249;
-  --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(#00000080,
-      #00000040,
-      #00000030,
-      #00000020,
-      #00000010,
-      #00000010,
-      #00000080);
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135;
+/* 1. إجبار الخلفية السوداء على الصفحة بالكامل */
+html, body {
+    background-color: #000000 !important;
+    color: #F9FAFB !important;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(to bottom right,
-        rgba(1, 65, 255, 0),
-        rgba(1, 65, 255, 0),
-        rgba(1, 65, 255, 0.3));
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(#ffffff80,
-        #ffffff40,
-        #ffffff30,
-        #ffffff20,
-        #ffffff10,
-        #ffffff10,
-        #ffffff80);
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
-} */
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* 2. تلوين الشريط الجانبي (Sidebar) بالأسود */
+aside, .sidebar, div[class*="border-r-gray-200"], .flex-col.h-full.border-r {
+    background-color: #050505 !important; /* أسود داكن جداً */
+    border-color: #C5A05944 !important; /* حدود ذهبية خفيفة */
+    color: #F9FAFB !important;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+/* 3. تلوين الشريط العلوي (Header) بالأسود */
+header, .header, div[class*="border-b-gray-200"], .flex.items-center.justify-between.h-16 {
+    background-color: #000000 !important;
+    border-color: #C5A05944 !important;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+/* 4. تلوين الفوتر والشريط السفلي */
+footer, .footer, div[class*="text-gray-500"], .text-xs.text-gray-500 {
+    background-color: #000000 !important;
+    color: #9CA3AF !important; /* لون رمادي للنص الصغير */
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* 5. إصلاح منطقة المحادثة والمدخلات */
+main, .chat-container, div[class*="bg-white"] {
+    background-color: #000000 !important;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-} */
-
-/* CSS Utils */
-.h1 {
-  padding-bottom: 1.5rem;
-  line-height: 1.5;
-  font-size: 1.125rem;
-  color: #111928;
+input, textarea, .input-area {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    border: 1px solid #C5A059 !important;
 }
 
-.h2 {
-  font-size: 14px;
-  font-weight: 500;
-  color: #111928;
-  line-height: 1.5;
+/* 6. تلوين الأزرار والروابط بالذهبي */
+button[class*="bg-primary"], .btn-primary {
+    background-color: #C5A059 !important;
+    color: #000000 !important;
 }
 
-.link {
-  @apply text-blue-600 cursor-pointer hover:opacity-80 transition-opacity duration-200 ease-in-out;
+button[class*="text-gray-"], a[class*="text-gray-"], .text-gray-700 {
+    color: #F9FAFB !important;
 }
 
+button:hover[class*="bg-gray-"], a:hover[class*="bg-gray-"] {
+    background-color: #C5A05922 !important; /* تأثير ذهبي عند المرور */
+}
+
+/* 7. تلوين العناوين والنصوص */
+h1, .h1, .text-gray-900, .font-bold {
+    color: #F3E887 !important; /* ذهبي فاتح */
+}
+
+h2, .h2, .font-medium {
+    color: #C5A059 !important; /* ذهبي أساسي */
+}
+
+/* تدرج النص الذهبي الفخم */
 .text-gradient {
-  background: linear-gradient(91.58deg, #2250F2 -29.55%, #0EBCF3 75.22%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
+    background: linear-gradient(91.58deg, #C5A059 -29.55%, #F3E887 75.22%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+/* استهداف كلاسات اللون الأبيض وتدميرها في كامل الموقع (الهيدر والشريط الجانبي) */
+.bg-white, .bg-gray-50, .bg-gray-100 {
+    background-color: #050505 !important;
+}
+
+/* تفتيح كل النصوص اللي كانت غامقة عشان تبين على الأسود */
+.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 {
+    color: #F9FAFB !important;
+}
+
+/* تحويل الخطوط الفاصلة (الحدود) بين الأشرطة إلى ذهبي خفيف */
+.border-gray-200, .border-gray-100 {
+    border-color: #C5A05944 !important;
+}
+
+/* تعديل لون تحديد المحادثة الحالية في الشريط الجانبي */
+.bg-primary-50 {
+    background-color: #111111 !important;
+    color: #C5A059 !important;
 }
