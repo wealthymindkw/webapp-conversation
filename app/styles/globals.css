@@ -87,3 +87,13 @@ h2, .h2, .font-medium {
     background-color: #111111 !important;
     color: #C5A059 !important;
 }
+/* إخفاء شعار وحقوق Dify وأي رابط لهم نهائياً من الموقع */
+a[href*="dify.ai"], 
+img[alt*="dify"], 
+svg[class*="dify"],
+.powered-by,
+div:has(> a[href*="dify.ai"]) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
