@@ -1,45 +1,120 @@
+import React from 'react'
 import type { FC } from 'react'
-import classNames from 'classnames'
-import style from './style.module.css'
+import { useTranslation } from 'react-i18next'
+import {
+  ChatBubbleOvalLeftEllipsisIcon,
+  PencilSquareIcon,
+} from '@heroicons/react/24/outline'
+import { ChatBubbleOvalLeftEllipsisIcon as ChatBubbleOvalLeftEllipsisSolidIcon } from '@heroicons/react/24/solid'
+import Button from '@/app/components/base/button'
+import type { ConversationItem } from '@/types/app'
 
-export interface AppIconProps {
-  size?: 'xs' | 'tiny' | 'small' | 'medium' | 'large'
-  rounded?: boolean
-  icon?: string
-  background?: string
-  className?: string
+function classNames(...classes: any[]) {
+  return classes.filter(Boolean).join(' ')
 }
 
-const AppIcon: FC<AppIconProps> = ({
-  size = 'medium',
-  rounded = false,
-  background,
-  className,
+const MAX_CONVERSATION_LENTH = 20
+
+export interface ISidebarProps {
+  copyRight: string
+  currentId: string
+  onCurrentIdChange: (id: string) => void
+  list: ConversationItem[]
+}
+
+const Sidebar: FC<ISidebarProps> = ({
+  copyRight,
+  currentId,
+  onCurrentIdChange,
+  list,
 }) => {
+  const { t } = useTranslation()
   return (
-    <span
-      className={classNames(
-        style.appIcon,
-        size !== 'medium' && style[size],
-        rounded && style.rounded,
-        className ?? '',
-      )}
-      style={{
-        background: 'transparent', /* خليناها شفافة عشان ما تخرب على صورتك */
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden', /* عشان يقص الصورة بشكل دائري مرتب */
-        border: '1px solid #C5A059' /* إطار ذهبي فخم */
-      }}
+    <div
+      className="shrink-0 flex flex-col overflow-y-auto bg-white pc:w-[244px] tablet:w-[192px] mobile:w-[240px]  border-r border-gray-200 tablet:h-[calc(100vh_-_3rem)] mobile:h-screen"
     >
-      <img 
-        src="https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png" 
-        alt="Wealthy Mind Logo" 
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-      />
-    </span>
+      {list.length < MAX_CONVERSATION_LENTH && (
+        <div className="flex flex-shrink-0 p-4 !pb-0">
+          <Button
+            onClick={() => { onCurrentIdChange('-1') }}
+            className="group block w-full flex-shrink-0 !justify-start !h-9 text-primary-600 items-center text-sm"
+          >
+            <PencilSquareIcon className="mr-2 h-4 w-4" /> {t('app.chat.newChat')}
+          </Button>
+        </div>
+      )}
+
+      <nav className="mt-4 flex-1 space-y-1 bg-white p-4 !pt-0">
+        {list.map((item) => {
+          const isCurrent = item.id === currentId
+          const ItemIcon
+            = isCurrent ? ChatBubbleOvalLeftEllipsisSolidIcon : ChatBubbleOvalLeftEllipsisIcon
+          return (
+            <div
+              onClick={() => onCurrentIdChange(item.id)}
+              key={item.id}
+              className={classNames(
+                isCurrent
+                  ? 'bg-primary-50 text-primary-600'
+                  : 'text-gray-700 hover:bg-gray-100 hover:text-gray-700',
+                'group flex items-center rounded-md px-2 py-2 text-sm font-medium cursor-pointer',
+              )}
+            >
+              <ItemIcon
+                className={classNames(
+                  isCurrent
+                    ? 'text-primary-600'
+                    : 'text-gray-400 group-hover:text-gray-500',
+                  'mr-3 h-5 w-5 flex-shrink-0',
+                )}
+                aria-hidden="true"
+              />
+              {item.name}
+            </div>
+          )
+        })}
+      </nav>
+
+      {/* 🌟 أزرار الكوتش حمد (Classic Wealthy Mind CTA) 🌟 */}
+      <div className="flex flex-col gap-2 p-4 mt-auto border-t border-[#C5A05944]">
+        
+        <a
+          href="حط_رابط_التحدي_هني"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center px-4 py-2 text-sm text-[#C5A059] bg-transparent border border-[#C5A059] rounded-md hover:bg-[#C5A05922] transition-colors font-serif text-center !border-opacity-50 !border-[0.5px]"
+          style={{ fontFamily: 'Times New Roman, serif', letterSpacing: '0.5px' }}
+        >
+          انضم معانا في التحدي القادم
+        </a>
+
+        <a
+          href="حط_رابط_المكالمة_هني"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center px-4 py-2 text-sm text-[#C5A059] bg-transparent border border-[#C5A059] rounded-md hover:bg-[#C5A05922] transition-colors font-serif text-center !border-opacity-50 !border-[0.5px]"
+          style={{ fontFamily: 'Times New Roman, serif', letterSpacing: '0.5px' }}
+        >
+          احجز استشارة استكشافية مجانية
+        </a>
+
+        <a
+          href="حط_رابط_التلقرام_هني"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center px-4 py-2 text-sm text-[#C5A059] bg-transparent border border-[#C5A059] rounded-md hover:bg-[#C5A05922] transition-colors font-serif text-center !border-opacity-50 !border-[0.5px]"
+          style={{ fontFamily: 'Times New Roman, serif', letterSpacing: '0.5px' }}
+        >
+          انضم لقناة التلقرام
+        </a>
+
+      </div>
+
+      <div className="flex flex-shrink-0 pr-4 pb-4 pl-4 pt-2">
+        <div className="text-gray-400 font-normal text-xs mx-auto">© {copyRight} {(new Date()).getFullYear()}</div>
+      </div>
+    </div>
   )
 }
 
-export default AppIcon
+export default React.memo(Sidebar)
