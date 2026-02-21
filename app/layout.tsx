@@ -1,7 +1,16 @@
 import { getLocaleOnServer } from '@/i18n/server'
-
 import './styles/globals.css'
 import './styles/markdown.scss'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'ولثي مايند', // ← غيّر الاسم هنا
+  icons: {
+    icon: 'https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/699a046320c035fe7bacda63.png',
+    shortcut: 'https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/699a046320c035fe7bacda63.png',
+    apple: 'https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/699a046320c035fe7bacda63.png',
+  },
+}
 
 const LocaleLayout = async ({
   children,
@@ -21,5 +30,4 @@ const LocaleLayout = async ({
     </html>
   )
 }
-
 export default LocaleLayout
