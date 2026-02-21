@@ -115,7 +115,7 @@ div[class*="text-center"] p,
     display: none !important;
 }
 
-/* ===== 11. أيقونة الروبوت → صورتك الشخصية (موحّدة بدون تكرار) ===== */
+/* ===== 11. أيقونة الروبوت → سهم ===== */
 
 /* إخفاء SVG والإيموجي القديم */
 .app-icon svg,
@@ -128,7 +128,7 @@ span.text-3xl {
     color: transparent !important;
 }
 
-/* الأيقونة - حجم موحد للديسكتوب والموبايل */
+/* الأيقونة - دائرة ذهبية بداخلها سهم */
 .app-icon,
 header .w-8.h-8,
 header div[class*="shrink-0"],
@@ -136,15 +136,32 @@ header div[class*="bg-primary"],
 div[class*="shrink-0 flex items-center justify-center"],
 div[class*="w-8 h-8"],
 div[class*="w-10 h-10"] {
-    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
-    background-size: cover !important;
-    background-position: center !important;
+    background-image: none !important;
     background-color: #000000 !important;
-    border: 1px solid #C5A059 !important;
+    border: 2px solid #C5A059 !important;
     border-radius: 50% !important;
     width: 36px !important;
     height: 36px !important;
     flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+/* رسم السهم داخل الأيقونة */
+.app-icon::after,
+header .w-8.h-8::after,
+header div[class*="shrink-0"]::after,
+header div[class*="bg-primary"]::after,
+div[class*="w-8 h-8"]::after,
+div[class*="w-10 h-10"]::after {
+    content: "❯" !important;
+    color: #C5A059 !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    line-height: 1 !important;
+    display: block !important;
 }
 
 /* ===== 12. ضبط الأحجام للموبايل ===== */
