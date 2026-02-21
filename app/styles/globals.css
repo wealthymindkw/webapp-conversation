@@ -1,62 +1,62 @@
-/* ========================================== */
-/* 📱 إصلاحات التلفون وتداخل النصوص 📱 */
-/* ========================================== */
-
-/* 1. إخفاء أي نص يحاول يطلع فوق صورتك الشخصية */
-div[class*="shrink-0"] > div:has(> .app-icon) + div,
-div[class*="shrink-0"] > div:has(> .app-icon) span {
-    display: none !important;
+/* 1. تنظيف الأساسيات وإرجاع السواد الفخم */
+body, #app-container, main, [class*="bg-white"] {
+    background-color: #000000 !important;
+    color: #ffffff !important;
 }
 
-/* 2. ضبط حجم أيقونة "New Chat" العملاقة في التلفون */
-svg[class*="h-4 w-4"], 
-svg[class*="h-5 w-5"],
-.sidebar svg,
-header svg {
+/* 2. حل مشكلة أيقونة القلم العملاقة (New Chat) */
+svg, .app-icon, [class*="w-"], [class*="h-"] {
+    max-width: 100% !important; /* يمنعها من الانفجار */
+}
+
+/* تحديد حجم أيقونات التحكم في التلفون والديسك توب */
+nav svg, header svg, aside svg, .sidebar svg {
     width: 20px !important;
     height: 20px !important;
-    max-width: 20px !important;
-    max-height: 20px !important;
+    min-width: 20px !important;
 }
 
-/* 3. ترتيب الصفحة بالكامل على التلفون (Mobile Mode) */
-@media (max-width: 768px) {
-    /* تصغير اللوقو/الأيقونة اللي فوق */
-    header .app-icon, 
-    header div[class*="w-8 h-8"] {
-        width: 28px !important;
-        height: 28px !important;
-        min-width: 28px !important;
-    }
-
-    /* إصلاح تباعد النصوص في المحادثة */
-    div[class*="chat-answer"], 
-    div[class*="chat-question"] {
-        font-size: 14px !important;
-        line-height: 1.5 !important;
-        padding: 10px !important;
-    }
-
-    /* جعل زر الإرسال والسهم بحجم معقول */
-    div:has(> textarea) button {
-        padding: 5px !important;
-        scale: 0.9 !important;
-    }
-
-    /* منع الأزرار الذهبية في الأسفل من التمدد بشكل قبيح */
-    div[class*="flex flex-col gap-2 p-4"] a {
-        padding: 8px !important;
-        font-size: 12px !important;
-    }
+/* 3. إصلاح صورتك الشخصية وإخفاء النص المتداخل */
+/* هذا السطر يمسح كلمة New Conversation اللي فوق صورتك */
+div[class*="shrink-0"]:has(> div > .app-icon) + div,
+div:has(> .app-icon) + div span {
+    display: none !important;
+    visibility: hidden !important;
 }
 
-/* 4. تثبيت مكان صورتك الشخصية ومنع تداخلها */
+/* تنسيق صورتك الشخصية */
 .app-icon {
-    margin-top: 5px !important;
-    z-index: 10 !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    border: 1px solid #C5A059 !important;
+    object-fit: cover !important;
 }
 
-/* 5. تنظيف خلفية المحادثة على الموبايل لتبدو سوداء فخمة */
-main, .chat-container, #app-container {
-    background-color: #000000 !important;
+/* 4. ترتيب التلفون (Mobile Rescue) */
+@media (max-width: 768px) {
+    /* تصغير الأيقونات أكثر لتناسب الشاشة */
+    svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+    
+    /* منع النصوص من التمدد العرضي */
+    div[class*="chat-answer"], div[class*="chat-question"] {
+        width: 100% !important;
+        padding: 12px !important;
+        font-size: 14px !important;
+    }
+
+    /* ترتيب أزرار الكوتش حمد في الأسفل */
+    div[class*="flex flex-col gap-2 p-4"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+}
+
+/* 5. إخفاء أي خلفيات بيضاء متبقية */
+[class*="border-b"], [class*="border-r"] {
+    border-color: #1a1a1a !important;
 }
