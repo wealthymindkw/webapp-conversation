@@ -10,8 +10,8 @@ html, body {
 
 /* 2. تلوين الشريط الجانبي (Sidebar) بالأسود */
 aside, .sidebar, div[class*="border-r-gray-200"], .flex-col.h-full.border-r {
-    background-color: #050505 !important; /* أسود داكن جداً */
-    border-color: #C5A05944 !important; /* حدود ذهبية خفيفة */
+    background-color: #050505 !important;
+    border-color: #C5A05944 !important;
     color: #F9FAFB !important;
 }
 
@@ -24,18 +24,12 @@ header, .header, div[class*="border-b-gray-200"], .flex.items-center.justify-bet
 /* 4. تلوين الفوتر والشريط السفلي */
 footer, .footer, div[class*="text-gray-500"], .text-xs.text-gray-500 {
     background-color: #000000 !important;
-    color: #9CA3AF !important; /* لون رمادي للنص الصغير */
+    color: #9CA3AF !important;
 }
 
 /* 5. إصلاح منطقة المحادثة والمدخلات */
 main, .chat-container, div[class*="bg-white"] {
     background-color: #000000 !important;
-}
-
-input, textarea, .input-area {
-    background-color: #111111 !important;
-    color: #ffffff !important;
-    border: 1px solid #C5A059 !important;
 }
 
 /* 6. تلوين الأزرار والروابط بالذهبي */
@@ -49,16 +43,16 @@ button[class*="text-gray-"], a[class*="text-gray-"], .text-gray-700 {
 }
 
 button:hover[class*="bg-gray-"], a:hover[class*="bg-gray-"] {
-    background-color: #C5A05922 !important; /* تأثير ذهبي عند المرور */
+    background-color: #C5A05922 !important;
 }
 
 /* 7. تلوين العناوين والنصوص */
 h1, .h1, .text-gray-900, .font-bold {
-    color: #F3E887 !important; /* ذهبي فاتح */
+    color: #F3E887 !important;
 }
 
 h2, .h2, .font-medium {
-    color: #C5A059 !important; /* ذهبي أساسي */
+    color: #C5A059 !important;
 }
 
 /* تدرج النص الذهبي الفخم */
@@ -67,17 +61,16 @@ h2, .h2, .font-medium {
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
 }
-/* استهداف كلاسات اللون الأبيض وتدميرها في كامل الموقع (الهيدر والشريط الجانبي) */
+
+/* استهداف كلاسات اللون الأبيض وتدميرها في كامل الموقع */
 .bg-white, .bg-gray-50, .bg-gray-100 {
     background-color: #050505 !important;
 }
 
-/* تفتيح كل النصوص اللي كانت غامقة عشان تبين على الأسود */
 .text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 {
     color: #F9FAFB !important;
 }
 
-/* تحويل الخطوط الفاصلة (الحدود) بين الأشرطة إلى ذهبي خفيف */
 .border-gray-200, .border-gray-100 {
     border-color: #C5A05944 !important;
 }
@@ -87,7 +80,8 @@ h2, .h2, .font-medium {
     background-color: #111111 !important;
     color: #C5A059 !important;
 }
-/* إخفاء شعار وحقوق Dify وأي رابط لهم نهائياً من الموقع */
+
+/* إخفاء شعار وحقوق Dify */
 a[href*="dify.ai"], 
 img[alt*="dify"], 
 svg[class*="dify"],
@@ -98,77 +92,37 @@ div:has(> a[href*="dify.ai"]) {
     opacity: 0 !important;
 }
 
-/* 1. إخفاء رسمة الروبوت (SVG) من الشريط العلوي نهائياً */
-header svg, 
-div[class*="border-b"] svg,
-.app-icon svg {
-    display: none !important;
-}
+/* ========================================== */
+/* 🌟 تصميم شريط المحادثة السفلي (الحاوية بالكامل) 🌟 */
+/* ========================================== */
 
-/* 2. تحويل المربع اللي كان فيه الروبوت إلى صورتك الدائرية */
-header .w-8.h-8, 
-header div[class*="shrink-0"],
-header div[class*="bg-primary"],
-header .app-icon {
-    /* 👇 حط رابط صورتك بين القوسين 👇 */
-    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
-    
-    /* تنسيق الصورة عشان تطلع دائرية وفخمة */
-    background-size: cover !important;
-    background-position: center !important;
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 50% !important;
+/* استهداف البرواز الخارجي اللي يلم الكتابة وزر الإرسال */
+div:has(> textarea), 
+div[class*="shadow-"], 
+.shrink-0:has(textarea) {
+    background-color: #0A0A0A !important;
     border: 1px solid #C5A059 !important;
-    background-color: transparent !important;
-}
-/* 1. إخفاء رسمة الروبوت (SVG) من الشريط العلوي نهائياً */
-header svg, 
-div[class*="border-b"] svg,
-.app-icon svg {
-    display: none !important;
+    border-radius: 12px !important;
+    padding: 4px 8px !important;
 }
 
-/* 2. تحويل المربع اللي كان فيه الروبوت إلى صورتك الدائرية */
-header .w-8.h-8, 
-header div[class*="shrink-0"],
-header div[class*="bg-primary"],
-header .app-icon {
-    /* 👇 حط رابط صورتك بين القوسين 👇 */
-    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
-    
-    /* تنسيق الصورة عشان تطلع دائرية وفخمة */
-    background-size: cover !important;
-    background-position: center !important;
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 50% !important;
-    border: 1px solid #C5A059 !important;
+/* تنظيف حقل الكتابة الداخلي عشان يندمج مع البرواز */
+textarea, .input-area {
     background-color: transparent !important;
-}
-/* إخفاء أيقونة الروبوت وأي إيموجي قديم */
-.app-icon svg, 
-.app-icon img,
-div[class*="rounded-md"] > span,
-span.text-3xl {
-    display: none !important;
-    color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    color: #F3E887 !important;
 }
 
-/* وضع صورتك الشخصية أو لوقو البراند بشكل دائري فخم */
-.app-icon, 
-div[class*="shrink-0 flex items-center justify-center"],
-div[class*="w-8 h-8"], 
-div[class*="w-10 h-10"] {
-    /* 👇 امسح الجملة العربية وحط رابط صورتك بين القوسين 👇 */
-    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-color: #000000 !important;
-    border: 1px solid #C5A059 !important; /* إطار ذهبي خفيف */
-    border-radius: 50% !important; /* يخلي الصورة دائرية */
+/* تعديل لون عداد الأحرف (مثل رقم 0) */
+div[class*="text-gray-400"]:has(span) {
+    color: #C5A05988 !important;
 }
-/* 3. إرجاع زر الإرسال (السهم) لشكله الأزرق الأصلي */
+
+/* ========================================== */
+/* 🌟 إرجاع زر الإرسال (السهم) لشكله الأزرق 🌟 */
+/* ========================================== */
 div:has(> textarea) div[class*="bg-primary"],
 div:has(> textarea) button,
 .shrink-0:has(textarea) div[class*="bg-primary"] {
@@ -179,4 +133,5 @@ div:has(> textarea) button,
 div:has(> textarea) svg,
 .shrink-0:has(textarea) svg {
     color: #FFFFFF !important; /* لون السهم أبيض */
+    display: block !important; /* عشان ما يختفي مع كود الروبوت */
 }
