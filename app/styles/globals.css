@@ -2,83 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 1. الأساسيات والسواد الفخم (كودك الأصلي) */
+/* ===== 1. خلفية سوداء للصفحة كاملة ===== */
 html, body {
     background-color: #000000 !important;
     color: #F9FAFB !important;
 }
 
-/* 2. الأشرطة الجانبية والعلوية */
-aside, .sidebar, header, [class*="border-r-gray-200"], [class*="border-b-gray-200"] {
+/* ===== 2. الشريط الجانبي ===== */
+aside, .sidebar, div[class*="border-r-gray-200"], .flex-col.h-full.border-r {
     background-color: #050505 !important;
+    border-color: #C5A05944 !important;
+    color: #F9FAFB !important;
+}
+
+/* ===== 3. الشريط العلوي (Header) ===== */
+header, .header, div[class*="border-b-gray-200"], .flex.items-center.justify-between.h-16 {
+    background-color: #000000 !important;
     border-color: #C5A05944 !important;
 }
 
-/* 3. منطقة المحادثة والمدخلات */
-main, .chat-container, div[class*="bg-white"], .bg-white {
+/* ===== 4. الفوتر ===== */
+footer, .footer {
+    background-color: #000000 !important;
+    color: #9CA3AF !important;
+}
+
+/* ===== 5. منطقة المحادثة ===== */
+main, .chat-container, div[class*="bg-white"] {
     background-color: #000000 !important;
 }
 
-input, textarea {
+input, textarea, .input-area {
     background-color: #111111 !important;
     color: #ffffff !important;
     border: 1px solid #C5A059 !important;
 }
 
-/* 4. إخفاء حقوق Dify وأيقونات الروبوت */
-a[href*="dify.ai"], .powered-by, .app-icon svg, header svg:first-child {
-    display: none !important;
-}
-
-/* 5. تثبيت صورتك الشخصية الفخمة */
-.app-icon, header .w-8.h-8, header .app-icon {
-    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-    border-radius: 50% !important;
-    border: 1px solid #C5A059 !important;
-}
-
-/* ------------------------------------------- */
-/* 🎯 هذي هي الإضافات الجديدة اللي تحل المشاكل 🎯 */
-/* ------------------------------------------- */
-
-/* أ - حل مشكلة نص New Conversation المتداخل مع صورتك */
-div[class*="shrink-0"]:has(> div > .app-icon) + div,
-.sidebar div:has(> .app-icon) + div span {
-    display: none !important; /* يخفي النص فقط ويترك الصورة نظيفة */
-}
-
-/* ب - حل مشكلة الأيقونة العملاقة في التلفون */
-/* نستهدف الأيقونات داخل الأزرار فقط عشان ما نخرب التصميم */
-button svg, a svg, .sidebar svg, header svg {
-    width: 20px !important;
-    height: 20px !important;
-    max-width: 20px !important;
-    max-height: 20px !important;
-}
-
-/* ج - ترتيب التلفون (Mobile Optimization) */
-@media (max-width: 768px) {
-    div[class*="chat-answer"], div[class*="chat-question"] {
-        padding: 10px !important;
-        font-size: 14px !important;
-    }
-    /* تصغير صورة الكوتش حمد قليلاً في الموبايل لترتيب المساحة */
-    header .app-icon {
-        width: 28px !important;
-        height: 28px !important;
-        min-width: 28px !important;
-    }
-}
-
-/* 6. ألوان الأزرار والنصوص (كودك الأصلي) */
+/* ===== 6. الأزرار والروابط ===== */
 button[class*="bg-primary"], .btn-primary {
     background-color: #C5A059 !important;
     color: #000000 !important;
+}
+
+button[class*="text-gray-"], a[class*="text-gray-"], .text-gray-700 {
+    color: #F9FAFB !important;
+}
+
+button:hover[class*="bg-gray-"], a:hover[class*="bg-gray-"] {
+    background-color: #C5A05922 !important;
+}
+
+/* ===== 7. العناوين والنصوص ===== */
+h1, .h1, .text-gray-900, .font-bold {
+    color: #F3E887 !important;
+}
+
+h2, .h2, .font-medium {
+    color: #C5A059 !important;
 }
 
 .text-gradient {
@@ -87,8 +67,135 @@ button[class*="bg-primary"], .btn-primary {
     -webkit-text-fill-color: transparent !important;
 }
 
-/* زر الإرسال الأزرق الأصلي */
-div:has(> textarea) button {
+/* ===== 8. تدمير الخلفيات البيضاء ===== */
+.bg-white, .bg-gray-50, .bg-gray-100 {
+    background-color: #050505 !important;
+}
+
+.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 {
+    color: #F9FAFB !important;
+}
+
+.border-gray-200, .border-gray-100 {
+    border-color: #C5A05944 !important;
+}
+
+.bg-primary-50 {
+    background-color: #111111 !important;
+    color: #C5A059 !important;
+}
+
+/* ===== 9. إخفاء شعار Dify ===== */
+a[href*="dify.ai"],
+img[alt*="dify"],
+svg[class*="dify"],
+.powered-by,
+div:has(> a[href*="dify.ai"]) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* ===== 10. إخفاء نص "New Conversation" من فوق الصورة ===== */
+/* إخفاء اسم التطبيق / العنوان اللي يطلع فوق الأيقونة في الهيدر */
+header .text-sm,
+header .font-semibold,
+header p,
+header span:not([class*="sr-only"]),
+div[class*="border-b"] .font-semibold,
+div[class*="border-b"] .text-sm,
+/* نص new conversation في الصفحة الرئيسية */
+.title,
+h1.title,
+.conversation-name,
+div[class*="text-center"] h1,
+div[class*="text-center"] p,
+.welcome-title,
+.app-name {
+    display: none !important;
+}
+
+/* ===== 11. أيقونة الروبوت → صورتك الشخصية (موحّدة بدون تكرار) ===== */
+
+/* إخفاء SVG والإيموجي القديم */
+.app-icon svg,
+.app-icon img,
+header svg,
+div[class*="border-b"] svg,
+div[class*="rounded-md"] > span,
+span.text-3xl {
+    display: none !important;
+    color: transparent !important;
+}
+
+/* الأيقونة - حجم موحد للديسكتوب والموبايل */
+.app-icon,
+header .w-8.h-8,
+header div[class*="shrink-0"],
+header div[class*="bg-primary"],
+div[class*="shrink-0 flex items-center justify-center"],
+div[class*="w-8 h-8"],
+div[class*="w-10 h-10"] {
+    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-color: #000000 !important;
+    border: 1px solid #C5A059 !important;
+    border-radius: 50% !important;
+    width: 36px !important;
+    height: 36px !important;
+    flex-shrink: 0 !important;
+}
+
+/* ===== 12. ضبط الأحجام للموبايل ===== */
+@media (max-width: 768px) {
+    /* الهيدر يصير أصغر على الموبايل */
+    header, .flex.items-center.justify-between.h-16 {
+        height: 52px !important;
+        padding: 0 12px !important;
+    }
+
+    /* الأيقونة تصغر شوي على الموبايل */
+    .app-icon,
+    header .w-8.h-8,
+    header div[class*="shrink-0"],
+    div[class*="w-8 h-8"],
+    div[class*="w-10 h-10"] {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    /* منطقة الكتابة تكون مريحة على الموبايل */
+    textarea {
+        font-size: 16px !important; /* يمنع الزوم التلقائي على iOS */
+    }
+
+    /* الشريط الجانبي يختفي على الموبايل (لو ما عنده نظام hide تلقائي) */
+    aside, .sidebar {
+        max-width: 260px !important;
+    }
+}
+
+/* ===== 13. ديسكتوب - ضمان التنسيق ===== */
+@media (min-width: 769px) {
+    .app-icon,
+    header .w-8.h-8,
+    div[class*="w-8 h-8"],
+    div[class*="w-10 h-10"] {
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+/* ===== 14. زر الإرسال يرجع أزرق أصلي ===== */
+div:has(> textarea) div[class*="bg-primary"],
+div:has(> textarea) button,
+.shrink-0:has(textarea) div[class*="bg-primary"] {
     background-color: #2563EB !important;
     border-radius: 8px !important;
+}
+
+div:has(> textarea) svg,
+.shrink-0:has(textarea) svg {
+    color: #FFFFFF !important;
 }
