@@ -135,3 +135,39 @@ div:has(> textarea) svg,
     color: #FFFFFF !important; /* لون السهم أبيض */
     display: block !important; /* عشان ما يختفي مع كود الروبوت */
 }
+/* ========================================== */
+/* 🌟 تغيير أيقونة البوت داخل المحادثة 🌟 */
+/* ========================================== */
+
+/* 1. إخفاء رسمة الروبوت (SVG) اللي داخل دائرة المحادثة */
+/* نستهدف الحاويات اللي لونها فاتح (bg-primary-50) واللي داخل منطقة الإجابات */
+.chat-answer-container svg,
+div[class*="bg-primary-50"] svg,
+div[class*="shrink-0"] > div[class*="rounded-full"] svg {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+/* 2. تحويل الدائرة الفاضية إلى صورتك الشخصية مع الإطار الذهبي */
+/* نستهدف نفس الحاويات ونحط صورتك كخلفية لها */
+.chat-answer-container .shrink-0 > div,
+div[class*="bg-primary-50"],
+div[class*="shrink-0"] > div[class*="rounded-full"]:not(:has(img)) {
+    /* رابط صورتك */
+    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
+    
+    /* تنسيق الصورة */
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    
+    /* الإطار الذهبي والشكل الدائري */
+    border: 1px solid #C5A059 !important;
+    border-radius: 50% !important;
+    
+    /* إجبار الحجم عشان تكون متناسقة */
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+}
