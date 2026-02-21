@@ -111,7 +111,7 @@ const Sidebar: FC<ISidebarProps> = ({
       </div>
 
       <div className="flex flex-shrink-0 pr-4 pb-4 pl-4 pt-2">
-        <div className="text-gray-400 font-normal text-xs mx-auto">© {copyRight} {(new Date()).getFullYear()}</div>
+        <div className="text-gray-400 font-normal text-xs mx-auto">© Wealthy Mind {(new Date()).getFullYear()}</div>
       </div>
     </div>
   )
