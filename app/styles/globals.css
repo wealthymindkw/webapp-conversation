@@ -1,173 +1,65 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ========================================== */
+/* 📱 تحسينات التلفون وترتيب واجهة المستخدم 📱 */
+/* ========================================== */
 
-/* 1. إجبار الخلفية السوداء على الصفحة بالكامل */
-html, body {
-    background-color: #000000 !important;
-    color: #F9FAFB !important;
+/* 1. حل مشكلة تداخل نص New Conversation مع الصورة */
+div[class*="pc:w-[244px]"] div[class*="flex-shrink-0"],
+.sidebar header, 
+aside header {
+    position: relative !important;
+    padding-top: 10px !important;
 }
 
-/* 2. تلوين الشريط الجانبي (Sidebar) بالأسود */
-aside, .sidebar, div[class*="border-r-gray-200"], .flex-col.h-full.border-r {
-    background-color: #050505 !important;
-    border-color: #C5A05944 !important;
-    color: #F9FAFB !important;
-}
-
-/* 3. تلوين الشريط العلوي (Header) بالأسود */
-header, .header, div[class*="border-b-gray-200"], .flex.items-center.justify-between.h-16 {
-    background-color: #000000 !important;
-    border-color: #C5A05944 !important;
-}
-
-/* 4. تلوين الفوتر والشريط السفلي */
-footer, .footer, div[class*="text-gray-500"], .text-xs.text-gray-500 {
-    background-color: #000000 !important;
-    color: #9CA3AF !important;
-}
-
-/* 5. إصلاح منطقة المحادثة والمدخلات */
-main, .chat-container, div[class*="bg-white"] {
-    background-color: #000000 !important;
-}
-
-/* 6. تلوين الأزرار والروابط بالذهبي */
-button[class*="bg-primary"], .btn-primary {
-    background-color: #C5A059 !important;
-    color: #000000 !important;
-}
-
-button[class*="text-gray-"], a[class*="text-gray-"], .text-gray-700 {
-    color: #F9FAFB !important;
-}
-
-button:hover[class*="bg-gray-"], a:hover[class*="bg-gray-"] {
-    background-color: #C5A05922 !important;
-}
-
-/* 7. تلوين العناوين والنصوص */
-h1, .h1, .text-gray-900, .font-bold {
-    color: #F3E887 !important;
-}
-
-h2, .h2, .font-medium {
-    color: #C5A059 !important;
-}
-
-/* تدرج النص الذهبي الفخم */
-.text-gradient {
-    background: linear-gradient(91.58deg, #C5A059 -29.55%, #F3E887 75.22%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-}
-
-/* استهداف كلاسات اللون الأبيض وتدميرها في كامل الموقع */
-.bg-white, .bg-gray-50, .bg-gray-100 {
-    background-color: #050505 !important;
-}
-
-.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 {
-    color: #F9FAFB !important;
-}
-
-.border-gray-200, .border-gray-100 {
-    border-color: #C5A05944 !important;
-}
-
-/* تعديل لون تحديد المحادثة الحالية في الشريط الجانبي */
-.bg-primary-50 {
-    background-color: #111111 !important;
-    color: #C5A059 !important;
-}
-
-/* إخفاء شعار وحقوق Dify */
-a[href*="dify.ai"], 
-img[alt*="dify"], 
-svg[class*="dify"],
-.powered-by,
-div:has(> a[href*="dify.ai"]) {
+/* إخفاء النص المزعج اللي يطلع فوق صورتك */
+div[class*="shrink-0"] > div > span:not([class*="app-icon"]),
+div:has(> .app-icon) + div {
     display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
 }
 
-/* ========================================== */
-/* 🌟 تصميم شريط المحادثة السفلي (الحاوية بالكامل) 🌟 */
-/* ========================================== */
-
-/* استهداف البرواز الخارجي اللي يلم الكتابة وزر الإرسال */
-div:has(> textarea), 
-div[class*="shadow-"], 
-.shrink-0:has(textarea) {
-    background-color: #0A0A0A !important;
-    border: 1px solid #C5A059 !important;
-    border-radius: 12px !important;
-    padding: 4px 8px !important;
+/* 2. ترتيب الشريط الجانبي (Sidebar) */
+.sidebar, [class*="border-r-gray-200"] {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 15px 10px !important;
 }
 
-/* تنظيف حقل الكتابة الداخلي عشان يندمج مع البرواز */
-textarea, .input-area {
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    color: #F3E887 !important;
-}
-
-/* تعديل لون عداد الأحرف (مثل رقم 0) */
-div[class*="text-gray-400"]:has(span) {
-    color: #C5A05988 !important;
-}
-
-/* ========================================== */
-/* 🌟 إرجاع زر الإرسال (السهم) لشكله الأزرق 🌟 */
-/* ========================================== */
-div:has(> textarea) div[class*="bg-primary"],
-div:has(> textarea) button,
-.shrink-0:has(textarea) div[class*="bg-primary"] {
-    background-color: #2563EB !important; /* اللون الأزرق الأصلي */
-    border-radius: 8px !important;
-}
-
-div:has(> textarea) svg,
-.shrink-0:has(textarea) svg {
-    color: #FFFFFF !important; /* لون السهم أبيض */
-    display: block !important; /* عشان ما يختفي مع كود الروبوت */
-}
-/* ========================================== */
-/* 🌟 تغيير أيقونة البوت داخل المحادثة 🌟 */
-/* ========================================== */
-
-/* 1. إخفاء رسمة الروبوت (SVG) اللي داخل دائرة المحادثة */
-/* نستهدف الحاويات اللي لونها فاتح (bg-primary-50) واللي داخل منطقة الإجابات */
-.chat-answer-container svg,
-div[class*="bg-primary-50"] svg,
-div[class*="shrink-0"] > div[class*="rounded-full"] svg {
-    display: none !important;
-    opacity: 0 !important;
-}
-
-/* 2. تحويل الدائرة الفاضية إلى صورتك الشخصية مع الإطار الذهبي */
-/* نستهدف نفس الحاويات ونحط صورتك كخلفية لها */
-.chat-answer-container .shrink-0 > div,
-div[class*="bg-primary-50"],
-div[class*="shrink-0"] > div[class*="rounded-full"]:not(:has(img)) {
-    /* رابط صورتك */
-    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
+/* 3. جعل التصميم متجاوب بالكامل مع التلفونات (Mobile Friendly) */
+@media (max-width: 768px) {
+    /* تصغير حجم الخطوط لتناسب الشاشة الصغيرة */
+    .text-sm {
+        font-size: 0.8rem !important;
+    }
     
-    /* تنسيق الصورة */
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-color: transparent !important;
-    
-    /* الإطار الذهبي والشكل الدائري */
-    border: 1px solid #C5A059 !important;
-    border-radius: 50% !important;
-    
-    /* إجبار الحجم عشان تكون متناسقة */
-    width: 32px !important;
-    height: 32px !important;
+    /* منع العناصر من التداخل */
+    main {
+        padding: 10px !important;
+    }
+
+    /* تعديل أزرار الكوتش حمد في الأسفل لتناسب اللمس */
+    div[class*="flex flex-col gap-2 p-4"] {
+        padding: 10px !important;
+        gap: 8px !important;
+    }
+
+    /* جعل الهيدر العلوي أنحف في التلفون */
+    header {
+        height: 50px !important;
+    }
+}
+
+/* 4. تجميل شكل صورتك الشخصية ومنعها من التمدد */
+.app-icon, [class*="w-8 h-8"] {
     min-width: 32px !important;
+    min-height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    margin-right: 10px !important;
+    border: 1.5px solid #C5A059 !important;
+    box-shadow: 0 0 10px rgba(197, 160, 89, 0.2) !important;
+}
+
+/* 5. تحسين شكل صندوق المحادثة السفلي على الموبايل */
+div:has(> textarea) {
+    margin: 10px !important;
+    width: auto !important;
 }
