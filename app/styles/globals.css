@@ -97,3 +97,28 @@ div:has(> a[href*="dify.ai"]) {
     visibility: hidden !important;
     opacity: 0 !important;
 }
+
+/* 1. إخفاء رسمة الروبوت (SVG) من الشريط العلوي نهائياً */
+header svg, 
+div[class*="border-b"] svg,
+.app-icon svg {
+    display: none !important;
+}
+
+/* 2. تحويل المربع اللي كان فيه الروبوت إلى صورتك الدائرية */
+header .w-8.h-8, 
+header div[class*="shrink-0"],
+header div[class*="bg-primary"],
+header .app-icon {
+    /* 👇 حط رابط صورتك بين القوسين 👇 */
+    background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
+    
+    /* تنسيق الصورة عشان تطلع دائرية وفخمة */
+    background-size: cover !important;
+    background-position: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    border: 1px solid #C5A059 !important;
+    background-color: transparent !important;
+}
