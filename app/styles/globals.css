@@ -160,14 +160,17 @@ header div[class*="bg-primary"]::after {
 }
 
 /* --- أيقونة البوت في المحادثة → صورتك الشخصية --- */
-div[class*="flex-row"]:not([class*="reverse"]) > div[class*="w-8"].shrink-0,
-div[class*="flex-row"]:not([class*="reverse"]) > div[class*="w-10"].shrink-0,
-.chat__bot .avatar,
-.agent-avatar,
-.message-bot .w-8,
-.message-bot .w-10,
-div[class*="bot"] > div[class*="w-8"],
-div[class*="bot"] > div[class*="w-10"] {
+/* كل أيقونة على يسار الرسالة = البوت */
+.chat-answer-container .answer-avatar,
+.chat-answer-container div[class*="avatar"],
+div[class*="answer"] > div[class*="avatar"],
+div[class*="answer"] > div[class*="shrink-0"],
+div[class*="chat-item"]:not([class*="user"]):not([class*="question"]) div[class*="shrink-0"]:first-child,
+/* استهداف مباشر للأيقونة الدائرية على اليسار في المحادثة */
+main div[class*="rounded-full"].shrink-0:not(:last-child),
+main div[class*="rounded-full"]:first-child,
+/* Dify specific */
+.chat-item .chat-item-avatar {
     background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
     background-size: cover !important;
     background-position: center !important;
@@ -176,32 +179,37 @@ div[class*="bot"] > div[class*="w-10"] {
     border-radius: 50% !important;
     width: 36px !important;
     height: 36px !important;
+    min-width: 36px !important;
     flex-shrink: 0 !important;
     overflow: hidden !important;
 }
 
-/* بدون سهم على avatar البوت */
-div[class*="flex-row"]:not([class*="reverse"]) > div[class*="w-8"].shrink-0::after,
-div[class*="flex-row"]:not([class*="reverse"]) > div[class*="w-10"].shrink-0::after {
+/* إخفاء أي SVG أو إيموجي داخل أيقونة البوت */
+.chat-answer-container div[class*="avatar"] svg,
+.chat-answer-container div[class*="avatar"] span,
+.chat-answer-container div[class*="avatar"] img,
+main div[class*="rounded-full"]:first-child svg,
+main div[class*="rounded-full"]:first-child span {
     display: none !important;
-    content: "" !important;
 }
 
 /* --- أيقونة المستخدم في المحادثة → أيقونة شخص --- */
-div[class*="flex-row-reverse"] > div[class*="w-8"].shrink-0,
-div[class*="flex-row-reverse"] > div[class*="w-10"].shrink-0,
-.chat__user .avatar,
-.user-avatar,
-.message-user .w-8,
-.message-user .w-10,
-div[class*="user"] > div[class*="w-8"],
-div[class*="user"] > div[class*="w-10"] {
+.chat-question-container div[class*="avatar"],
+div[class*="question"] > div[class*="avatar"],
+div[class*="question"] > div[class*="shrink-0"],
+div[class*="chat-item"][class*="user"] div[class*="shrink-0"],
+/* الدائرة الزرقاء على اليمين */
+main div[class*="rounded-full"]:last-child,
+main div[class*="bg-primary"][class*="rounded-full"],
+.chat-item .user-avatar,
+div[class*="human"] div[class*="avatar"] {
     background-image: none !important;
-    background-color: #1a1a2e !important;
+    background-color: #111111 !important;
     border: 2px solid #C5A05966 !important;
     border-radius: 50% !important;
     width: 36px !important;
     height: 36px !important;
+    min-width: 36px !important;
     flex-shrink: 0 !important;
     display: flex !important;
     align-items: center !important;
@@ -210,13 +218,21 @@ div[class*="user"] > div[class*="w-10"] {
     position: relative !important;
 }
 
-div[class*="flex-row-reverse"] > div[class*="w-8"].shrink-0::after,
-div[class*="flex-row-reverse"] > div[class*="w-10"].shrink-0::after {
+div[class*="question"] > div[class*="avatar"]::after,
+div[class*="question"] > div[class*="shrink-0"]::after,
+main div[class*="rounded-full"]:last-child::after,
+main div[class*="bg-primary"][class*="rounded-full"]::after {
     content: "👤" !important;
     font-size: 18px !important;
     line-height: 1 !important;
     display: block !important;
     -webkit-text-fill-color: initial !important;
+}
+
+/* إخفاء SVG داخل أيقونة المستخدم */
+div[class*="question"] > div[class*="avatar"] svg,
+main div[class*="bg-primary"][class*="rounded-full"] svg {
+    display: none !important;
 }
 
 /* ===== 12. ضبط الأحجام للموبايل ===== */
