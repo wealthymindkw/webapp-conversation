@@ -146,3 +146,25 @@ header .app-icon {
     border: 1px solid #C5A059 !important;
     background-color: transparent !important;
 }
+/* إخفاء أيقونة الروبوت وأي إيموجي قديم */
+.app-icon svg, 
+.app-icon img,
+div[class*="rounded-md"] > span,
+span.text-3xl {
+    display: none !important;
+    color: transparent !important;
+}
+
+/* وضع صورتك الشخصية أو لوقو البراند بشكل دائري فخم */
+.app-icon, 
+div[class*="shrink-0 flex items-center justify-center"],
+div[class*="w-8 h-8"], 
+div[class*="w-10 h-10"] {
+    /* 👇 امسح الجملة العربية وحط رابط صورتك بين القوسين 👇 */
+    background-image: url('حط_رابط_الصورة_هني') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-color: #000000 !important;
+    border: 1px solid #C5A059 !important; /* إطار ذهبي خفيف */
+    border-radius: 50% !important; /* يخلي الصورة دائرية */
+}
