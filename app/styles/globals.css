@@ -168,3 +168,15 @@ div[class*="w-10 h-10"] {
     border: 1px solid #C5A059 !important; /* إطار ذهبي خفيف */
     border-radius: 50% !important; /* يخلي الصورة دائرية */
 }
+/* 3. إرجاع زر الإرسال (السهم) لشكله الأزرق الأصلي */
+div:has(> textarea) div[class*="bg-primary"],
+div:has(> textarea) button,
+.shrink-0:has(textarea) div[class*="bg-primary"] {
+    background-color: #2563EB !important; /* اللون الأزرق الأصلي */
+    border-radius: 8px !important;
+}
+
+div:has(> textarea) svg,
+.shrink-0:has(textarea) svg {
+    color: #FFFFFF !important; /* لون السهم أبيض */
+}
