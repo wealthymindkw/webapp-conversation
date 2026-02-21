@@ -1,65 +1,62 @@
 /* ========================================== */
-/* 📱 تحسينات التلفون وترتيب واجهة المستخدم 📱 */
+/* 📱 إصلاحات التلفون وتداخل النصوص 📱 */
 /* ========================================== */
 
-/* 1. حل مشكلة تداخل نص New Conversation مع الصورة */
-div[class*="pc:w-[244px]"] div[class*="flex-shrink-0"],
-.sidebar header, 
-aside header {
-    position: relative !important;
-    padding-top: 10px !important;
-}
-
-/* إخفاء النص المزعج اللي يطلع فوق صورتك */
-div[class*="shrink-0"] > div > span:not([class*="app-icon"]),
-div:has(> .app-icon) + div {
+/* 1. إخفاء أي نص يحاول يطلع فوق صورتك الشخصية */
+div[class*="shrink-0"] > div:has(> .app-icon) + div,
+div[class*="shrink-0"] > div:has(> .app-icon) span {
     display: none !important;
 }
 
-/* 2. ترتيب الشريط الجانبي (Sidebar) */
-.sidebar, [class*="border-r-gray-200"] {
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 15px 10px !important;
+/* 2. ضبط حجم أيقونة "New Chat" العملاقة في التلفون */
+svg[class*="h-4 w-4"], 
+svg[class*="h-5 w-5"],
+.sidebar svg,
+header svg {
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
 }
 
-/* 3. جعل التصميم متجاوب بالكامل مع التلفونات (Mobile Friendly) */
+/* 3. ترتيب الصفحة بالكامل على التلفون (Mobile Mode) */
 @media (max-width: 768px) {
-    /* تصغير حجم الخطوط لتناسب الشاشة الصغيرة */
-    .text-sm {
-        font-size: 0.8rem !important;
+    /* تصغير اللوقو/الأيقونة اللي فوق */
+    header .app-icon, 
+    header div[class*="w-8 h-8"] {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
     }
-    
-    /* منع العناصر من التداخل */
-    main {
+
+    /* إصلاح تباعد النصوص في المحادثة */
+    div[class*="chat-answer"], 
+    div[class*="chat-question"] {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
         padding: 10px !important;
     }
 
-    /* تعديل أزرار الكوتش حمد في الأسفل لتناسب اللمس */
-    div[class*="flex flex-col gap-2 p-4"] {
-        padding: 10px !important;
-        gap: 8px !important;
+    /* جعل زر الإرسال والسهم بحجم معقول */
+    div:has(> textarea) button {
+        padding: 5px !important;
+        scale: 0.9 !important;
     }
 
-    /* جعل الهيدر العلوي أنحف في التلفون */
-    header {
-        height: 50px !important;
+    /* منع الأزرار الذهبية في الأسفل من التمدد بشكل قبيح */
+    div[class*="flex flex-col gap-2 p-4"] a {
+        padding: 8px !important;
+        font-size: 12px !important;
     }
 }
 
-/* 4. تجميل شكل صورتك الشخصية ومنعها من التمدد */
-.app-icon, [class*="w-8 h-8"] {
-    min-width: 32px !important;
-    min-height: 32px !important;
-    max-width: 32px !important;
-    max-height: 32px !important;
-    margin-right: 10px !important;
-    border: 1.5px solid #C5A059 !important;
-    box-shadow: 0 0 10px rgba(197, 160, 89, 0.2) !important;
+/* 4. تثبيت مكان صورتك الشخصية ومنع تداخلها */
+.app-icon {
+    margin-top: 5px !important;
+    z-index: 10 !important;
 }
 
-/* 5. تحسين شكل صندوق المحادثة السفلي على الموبايل */
-div:has(> textarea) {
-    margin: 10px !important;
-    width: auto !important;
+/* 5. تنظيف خلفية المحادثة على الموبايل لتبدو سوداء فخمة */
+main, .chat-container, #app-container {
+    background-color: #000000 !important;
 }
