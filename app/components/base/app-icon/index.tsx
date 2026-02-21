@@ -25,10 +25,19 @@ const AppIcon: FC<AppIconProps> = ({
         className ?? '',
       )}
       style={{
-        background,
+        background: 'transparent', /* خليناها شفافة عشان ما تخرب على صورتك */
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden', /* عشان يقص الصورة بشكل دائري مرتب */
+        border: '1px solid #C5A059' /* إطار ذهبي فخم */
       }}
     >
-      🤖
+      <img 
+        src="حط_رابط_الصورة_هني" 
+        alt="Wealthy Mind Logo" 
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+      />
     </span>
   )
 }
