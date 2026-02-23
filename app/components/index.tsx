@@ -329,14 +329,14 @@ const Main: FC<IMainProps> = () => {
   if (!APP_ID || !APP_INFO || !promptConfig) { return <Loading type='app' /> }
 
   return (
-    <div className='bg-gray-100'>
+    <div className='h-screen flex flex-col overflow-hidden bg-black'>
       <Header
         title={APP_INFO.title}
         isMobile={isMobile}
         onShowSideBar={showSidebar}
         onCreateNewChat={() => handleConversationIdChange('-1')}
       />
-      <div className="flex rounded-t-2xl bg-white overflow-hidden">
+      <div className="flex flex-1 overflow-hidden relative">
         {/* Sidebar - ديسكتوب */}
         {!isMobile && renderSidebar()}
 
@@ -349,7 +349,7 @@ const Main: FC<IMainProps> = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(35, 56, 118, 0.2)',
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
             }}
             onClick={hideSidebar}
           >
@@ -360,7 +360,7 @@ const Main: FC<IMainProps> = () => {
         )}
 
         {/* Main content */}
-        <div className='flex-grow flex flex-col h-[calc(100vh_-_3rem)] overflow-y-auto'>
+        <div className='flex-grow flex flex-col h-full overflow-y-auto'>
           <ConfigSence
             conversationName={conversationName}
             hasSetInputs={hasSetInputs}
