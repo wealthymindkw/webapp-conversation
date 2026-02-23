@@ -79,7 +79,7 @@ const Sidebar: FC<ISidebarProps> = ({
       <div className="flex flex-col gap-2 p-4 mt-auto border-t border-[#C5A05944]">
         
         <a
-          href="حط_رابط_التحدي_هني"
+          href="https://wealthymindme.com/Challenge-bt"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center px-4 py-2 text-sm text-[#C5A059] bg-transparent border border-[#C5A059] rounded-md hover:bg-[#C5A05922] transition-colors font-serif text-center !border-opacity-50 !border-[0.5px]"
