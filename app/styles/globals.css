@@ -3,64 +3,53 @@
 @tailwind utilities;
 
 /* ========================================== */
-/* 1. الخلفية الكحلية المائلة (Tony Robbins) */
+/* 1. الخلفية الأساسية (Flat Dark Mode نفس ChatGPT) */
 /* ========================================== */
-html, body {
-    background: linear-gradient(160deg, #232938 0%, #232938 50%, #232938 100%) !important;
-    background-attachment: fixed !important;
-    color: #F9FAFB !important;
+html, body, main, .chat-container, div[class*="bg-white"], div[class*="bg-gray"] {
+    background-color: #212121 !important; /* لون رمادي داكن مطفي */
+    color: #ECECEC !important; /* نص أبيض مريح للعين */
     min-height: 100vh !important;
-}
-
-main, .chat-container, div[class*="bg-white"], div[class*="bg-gray"] {
-    background: transparent !important;
+    background-image: none !important;
 }
 
 /* ========================================== */
-/* 2. الهيدر - يكون فوق السايدبار دائماً */
+/* 2. الهيدر (بدون حدود عشان يندمج مع الخلفية) */
 /* ========================================== */
 header, .header,
 div[class*="border-b-gray-200"],
 .flex.items-center.justify-between.h-16 {
-    background: rgba(8, 11, 20, 0.95) !important;
-    backdrop-filter: blur(12px) !important;
-    border-color: rgba(255,255,255,0.06) !important;
-    position: relative !important;
-    z-index: 50 !important; /* تم رفعه لضمان عدم التداخل */
+    background-color: #212121 !important;
+    border: none !important; /* مسحنا الخط الفاصل */
+    box-shadow: none !important;
+    z-index: 50 !important;
 }
 
 /* ========================================== */
-/* 3. الشريط الجانبي (Sidebar) - شفافية أنيقة */
+/* 3. الشريط الجانبي (Sidebar) - أغمق بدرجة بسيطة */
 /* ========================================== */
 aside, .sidebar,
 div[class*="border-r-gray-200"],
 .flex-col.h-full.border-r {
-    /* الرقم 0.85 هو نسبة الشفافية (تقدر تنقصه إلى 0.7 عشان تصير شفافة أكثر) */
-    background: rgba(10, 14, 26, 0.85) !important; 
-    border-color: rgba(255, 255, 255, 0.06) !important;
-    color: #F9FAFB !important;
-    backdrop-filter: blur(12px) !important; /* تأثير التغبيش الفخم اللي وراها */
+    background-color: #171717 !important; /* لون أغمق شوي للتميز المريح */
+    border: none !important;
+    color: #ECECEC !important;
 }
 
 /* ========================================== */
-/* 4. تلوين الخلفيات البيضاء وتصحيح النصوص */
+/* 4. تنظيف النصوص وإلغاء الألوان القديمة */
 /* ========================================== */
-.bg-white, .bg-gray-50, .bg-gray-100 { background-color: transparent !important; }
-.border-gray-200, .border-gray-100 { border-color: rgba(255,255,255,0.06) !important; }
+.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 { color: #ECECEC !important; }
+h1, .font-bold, h2, .font-medium { color: #ECECEC !important; }
 
-footer, .footer { background: transparent !important; color: #4B5563 !important; }
-
-.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 { color: #E5E7EB !important; }
-h1, .font-bold { color: #ffffff !important; }
-h2, .font-medium { color: #cbd5e1 !important; }
-
+/* لون التحديد في القائمة الجانبية */
 .bg-primary-50 {
-    background-color: rgba(255,255,255,0.05) !important;
-    color: #C5A059 !important;
+    background-color: #2F2F2F !important;
+    color: #ECECEC !important;
+    border-radius: 8px !important;
 }
 
 /* ========================================== */
-/* 5. أيقونة الهيدر وإخفاء الحقوق */
+/* 5. أيقونة الهيدر (نظيفة بدون إطار ذهبي) */
 /* ========================================== */
 a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by { display: none !important; }
 
@@ -68,7 +57,7 @@ a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by { display:
     background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
     background-size: cover !important;
     background-position: center !important;
-    border: 1.5px solid rgba(197, 160, 89, 0.6) !important;
+    border: none !important; /* مسحنا الإطار الذهبي */
     border-radius: 50% !important;
     width: 32px !important;
     height: 32px !important;
@@ -76,7 +65,7 @@ a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by { display:
 header svg:first-child, .app-icon svg { display: none !important; }
 
 /* ========================================== */
-/* 6. إخفاء العناصر المزعجة (النصوص والعداد) */
+/* 6. إخفاء العناصر المزعجة */
 /* ========================================== */
 #send-tip, [id="send-tip"], .rc-tooltip,
 .text-xs.text-gray-500, div[class*="text-xs text-gray-"] {
@@ -89,50 +78,49 @@ div[class*="shrink-0 h-"]:has(+ div[class*="overflow"]) span {
 }
 
 /* ========================================== */
-/* 7. فقاعات المحادثة (User + Bot) */
+/* 7. فقاعات المحادثة (نظيفة ومسطحة Flat) */
 /* ========================================== */
+/* فقاعة المستخدم (رمادي فاتح) */
 .mr-2.py-3.px-4.bg-blue-500, div[class*="bg-blue-500"] {
-    background: linear-gradient(135deg, #2563EB, #1d4ed8) !important;
-    border-radius: 20px 20px 4px 20px !important;
-    color: #ffffff !important;
-    box-shadow: 0 2px 12px rgba(37, 99, 235, 0.3) !important;
+    background-color: #2F2F2F !important;
+    border-radius: 18px !important;
+    color: #ECECEC !important;
+    box-shadow: none !important;
     border: none !important;
 }
 
+/* فقاعة البوت (شفافة لتندمج مع الخلفية) */
 .ml-2.py-3.px-4.bg-gray-100, div[class*="bg-gray-100"] {
-    background: rgba(22, 28, 45, 0.95) !important;
-    border-radius: 4px 20px 20px 20px !important;
-    color: #F1F5F9 !important;
-    border: 1px solid rgba(255,255,255,0.06) !important;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.3) !important;
+    background-color: transparent !important;
+    border-radius: 18px !important;
+    color: #ECECEC !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 /* ========================================== */
-/* 8. صندوق الكتابة السفلي (المشكلة انحلت هنا) */
+/* 8. صندوق الكتابة (نفس ChatGPT بالضبط) */
 /* ========================================== */
-/* تأمين مساحة الصندوق بالأسفل */
 div[class*="absolute bottom-0"]:has(textarea),
 div[class*="p-4"]:has(textarea) {
     background: transparent !important;
     border: none !important;
-    padding-bottom: 20px !important; /* يعطي مساحة للصندوق عشان يطوف */
+    padding-bottom: 20px !important;
 }
 
-/* تصميم الصندوق العائم */
 div[class*="relative"]:has(> textarea),
 div[class*="flex"]:has(> textarea) {
-    background: rgba(12, 16, 28, 0.9) !important;
-    backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 28px !important;
+    background-color: #2F2F2F !important; /* لون الصندوق */
+    border: none !important; /* مسحنا الحدود */
+    border-radius: 26px !important;
     padding: 10px 48px 10px 16px !important;
     margin: 0 10px !important;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
+    box-shadow: none !important; /* مسحنا الظل */
 }
 
 textarea {
     background: transparent !important;
-    color: #ffffff !important;
+    color: #ECECEC !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
@@ -140,36 +128,38 @@ textarea {
     font-size: 16px !important;
     line-height: 1.5 !important;
 }
-textarea::placeholder { color: rgba(255,255,255,0.3) !important; }
+textarea::placeholder { color: #8E8E8E !important; }
 textarea:focus { outline: none !important; box-shadow: none !important; }
 
-/* زر الإرسال المدمج */
+/* زر الإرسال (دائري أبيض بداخله سهم غامق) */
 div:has(> textarea) button,
 div:has(> textarea) div[class*="bg-primary"] {
     position: absolute !important;
-    right: 6px !important;
-    bottom: 6px !important;
-    background: linear-gradient(135deg, #2563EB, #1d4ed8) !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    background-color: #ECECEC !important; /* زر فاتح */
     border-radius: 50% !important;
-    width: 34px !important;
-    height: 34px !important;
+    width: 32px !important;
+    height: 32px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     margin: 0 !important;
+    box-shadow: none !important;
 }
-div:has(> textarea) svg { color: #FFFFFF !important; width: 16px !important; height: 16px !important; }
+div:has(> textarea) svg { color: #212121 !important; width: 16px !important; height: 16px !important; } /* سهم غامق */
 
 /* ========================================== */
-/* 9. ضبط الأيقونات والأزرار الجانبية */
+/* 9. الأزرار السفلية والجانبية */
 /* ========================================== */
 svg { max-width: 24px !important; max-height: 24px !important; }
 
 button[class*="bg-primary"], .btn-primary {
-    background-color: #C5A059 !important;
-    color: #000000 !important;
+    background-color: #2F2F2F !important;
+    color: #ECECEC !important;
+    border: none !important;
 }
-button[class*="text-gray-"], a[class*="text-gray-"] { color: #E5E7EB !important; }
+button[class*="text-gray-"], a[class*="text-gray-"] { color: #ECECEC !important; }
 button:hover[class*="bg-gray-"], a:hover[class*="bg-gray-"] {
-    background-color: rgba(255,255,255,0.05) !important;
+    background-color: #383838 !important;
 }
