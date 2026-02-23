@@ -5,7 +5,6 @@ import {
   PencilSquareIcon,
 } from '@heroicons/react/24/solid'
 import AppIcon from '@/app/components/base/app-icon'
-// 🚀 استيراد أدوات Clerk لتسجيل الدخول 🚀
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 export interface IHeaderProps {
@@ -33,7 +32,7 @@ const Header: FC<IHeaderProps> = ({
           <Bars3Icon className="h-5 w-5 text-gray-400" />
         </div>
       ) : (
-        <div className="w-8"></div> /* مساحة وهمية عشان الشعار يظل بالنص */
+        <div className="w-8"></div>
       )}
 
       {/* 2. المنتصف: الشعار واسم الموقع */}
@@ -50,21 +49,20 @@ const Header: FC<IHeaderProps> = ({
           </div>
         )}
         
-        {/* 🚀 يظهر إذا المستخدم مو مسجل دخول (زر أبيض فخم) 🚀 */}
+        {/* 🚀 زر تسجيل الدخول (ضفنا له كلاس login-btn عشان نحميه) 🚀 */}
         <SignedOut>
           <SignInButton mode="modal">
-            <button className="text-sm font-medium text-[#212121] bg-[#ECECEC] hover:bg-white px-4 py-1.5 rounded-full transition-colors">
+            <button className="login-btn text-sm transition-colors">
               Log in
             </button>
           </SignInButton>
         </SignedOut>
 
-        {/* 🚀 يظهر إذا المستخدم مسجل دخول (الصورة الشخصية الدائرية) 🚀 */}
         <SignedIn>
           <UserButton 
             appearance={{
               elements: {
-                userButtonAvatarBox: "w-8 h-8" /* حجم الصورة مناسب للهيدر */
+                userButtonAvatarBox: "w-8 h-8"
               }
             }}
           />
