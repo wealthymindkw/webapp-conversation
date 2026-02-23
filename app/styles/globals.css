@@ -30,15 +30,16 @@ div[class*="border-b-gray-200"],
 }
 
 /* ========================================== */
-/* 3. الشريط الجانبي (Sidebar) */
+/* 3. الشريط الجانبي (Sidebar) - شفافية أنيقة */
 /* ========================================== */
-/* شلنا أكواد الموبايل المعقدة لأن ملف index.tsx صار يتكفل فيها */
 aside, .sidebar,
 div[class*="border-r-gray-200"],
 .flex-col.h-full.border-r {
-    background: linear-gradient(180deg, #0a0e1a 0%, #080b14 100%) !important;
-    border-color: rgba(255,255,255,0.06) !important;
+    /* الرقم 0.85 هو نسبة الشفافية (تقدر تنقصه إلى 0.7 عشان تصير شفافة أكثر) */
+    background: rgba(10, 14, 26, 0.85) !important; 
+    border-color: rgba(255, 255, 255, 0.06) !important;
     color: #F9FAFB !important;
+    backdrop-filter: blur(12px) !important; /* تأثير التغبيش الفخم اللي وراها */
 }
 
 /* ========================================== */
