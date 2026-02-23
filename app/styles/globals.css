@@ -42,6 +42,24 @@ div[class*="border-r-gray-200"],
     position: relative !important;
 }
 
+/* موبايل: السايدبار يبدأ من تحت الهيدر */
+@media (max-width: 768px) {
+    /* الكونتينر اللي يحتوي السايدبار كـ overlay */
+    div[class*="mobile:w-[240px]"],
+    div[class*="mobile:w-"] {
+        margin-top: 0 !important;
+    }
+
+    /* السايدبار نفسه يأخذ ارتفاع أقل من الشاشة بمقدار الهيدر */
+    div[class*="mobile:h-screen"],
+    div[class*="mobile:w-[240px]"].shrink-0 {
+        height: calc(100vh - 3rem) !important;
+        margin-top: 3rem !important;
+        position: relative !important;
+        z-index: 30 !important;
+    }
+}
+
 /* ========================================== */
 /* 4. تلوين الخلفيات البيضاء */
 /* ========================================== */
