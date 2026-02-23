@@ -65,14 +65,10 @@ header span.font-semibold {
 /* ========================================== */
 /* 4. إخفاء Tooltip "Send Enter" نهائياً */
 /* ========================================== */
-/* إخفاء الـ tooltip كامل */
 [id*="send-tip"],
 div[id*="send-tip"],
 .tippy-box,
-.tippy-content,
-[data-tippy-content],
-/* الـ tooltip الظاهر في الصورة */
-div.absolute:has(> div > span):not(:has(textarea)):not(:has(button)) {
+.tippy-content {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -86,23 +82,9 @@ div[class*="text-xs text-gray-"] {
 }
 
 /* ========================================== */
-/* 5. تثبيت الهيدر (يبقى ثابت لما الكيبورد يطلع) */
+/* 5. الهيدر - بدون تعديل على الـ position */
 /* ========================================== */
-header,
-.flex.items-center.justify-between.h-16,
-div[class*="border-b"].flex.items-center {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 50 !important;
-    height: 56px !important;
-}
-
-/* تعويض المساحة اللي أخذها الهيدر الثابت */
-main, .chat-container, div[class*="h-full"]:not(html):not(body) {
-    padding-top: 56px !important;
-}
+/* لا نغير position الهيدر عشان ما يخرب الـ layout */
 
 /* ========================================== */
 /* 6. صندوق الكتابة العائم */
