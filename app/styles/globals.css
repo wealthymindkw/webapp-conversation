@@ -17,18 +17,7 @@ main, .chat-container, div[class*="bg-white"], div[class*="bg-gray"] {
 }
 
 /* ========================================== */
-/* 2. الشريط الجانبي */
-/* ========================================== */
-aside, .sidebar,
-div[class*="border-r-gray-200"],
-.flex-col.h-full.border-r {
-    background: linear-gradient(180deg, #0a0e1a 0%, #080b14 100%) !important;
-    border-color: rgba(255,255,255,0.06) !important;
-    color: #F9FAFB !important;
-}
-
-/* ========================================== */
-/* 3. الهيدر */
+/* 3. الهيدر - يكون فوق السايدبار دائماً */
 /* ========================================== */
 header, .header,
 div[class*="border-b-gray-200"],
@@ -36,6 +25,21 @@ div[class*="border-b-gray-200"],
     background: rgba(8, 11, 20, 0.95) !important;
     backdrop-filter: blur(12px) !important;
     border-color: rgba(255,255,255,0.06) !important;
+    position: relative !important;
+    z-index: 40 !important;
+}
+
+/* ========================================== */
+/* 2. الشريط الجانبي - تحت الهيدر */
+/* ========================================== */
+aside, .sidebar,
+div[class*="border-r-gray-200"],
+.flex-col.h-full.border-r {
+    background: linear-gradient(180deg, #0a0e1a 0%, #080b14 100%) !important;
+    border-color: rgba(255,255,255,0.06) !important;
+    color: #F9FAFB !important;
+    z-index: 30 !important;
+    position: relative !important;
 }
 
 /* ========================================== */
@@ -156,7 +160,7 @@ div:has(> textarea) {
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 28px !important;
     padding: 12px 52px 12px 18px !important;
-    margin: 0 12px 16px 12px !important;
+    margin: 0 12px 24px 12px !important;
     box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
     position: relative !important;
 }
