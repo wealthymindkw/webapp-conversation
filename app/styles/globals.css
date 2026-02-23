@@ -32,12 +32,6 @@ main, .chat-container, div[class*="bg-white"] {
     background-color: #000000 !important;
 }
 
-input, textarea, .input-area {
-    background-color: #111111 !important;
-    color: #ffffff !important;
-    border: 1px solid #C5A059 !important;
-}
-
 /* ===== 6. الأزرار والروابط ===== */
 button[class*="bg-primary"], .btn-primary {
     background-color: #C5A059 !important;
@@ -97,14 +91,12 @@ div:has(> a[href*="dify.ai"]) {
 }
 
 /* ===== 10. إخفاء نص "New Conversation" من فوق الصورة ===== */
-/* إخفاء اسم التطبيق / العنوان اللي يطلع فوق الأيقونة في الهيدر */
 header .text-sm,
 header .font-semibold,
 header p,
 header span:not([class*="sr-only"]),
 div[class*="border-b"] .font-semibold,
 div[class*="border-b"] .text-sm,
-/* نص new conversation في الصفحة الرئيسية */
 .title,
 h1.title,
 .conversation-name,
@@ -116,8 +108,6 @@ div[class*="text-center"] p,
 }
 
 /* ===== 11. أيقونة الهيدر فقط → إطار ذهبي ===== */
-/* الأيقونات في المحادثة (بوت + مستخدم) تتحكم بها SVG files مباشرة */
-
 .app-icon,
 header .app-icon {
     border: 2px solid #C5A059 !important;
@@ -127,13 +117,10 @@ header .app-icon {
 
 /* ===== 12. ضبط الأحجام للموبايل ===== */
 @media (max-width: 768px) {
-    /* الهيدر يصير أصغر على الموبايل */
     header, .flex.items-center.justify-between.h-16 {
         height: 52px !important;
         padding: 0 12px !important;
     }
-
-    /* الأيقونة تصغر شوي على الموبايل */
     .app-icon,
     header .w-8.h-8,
     header div[class*="shrink-0"],
@@ -142,13 +129,9 @@ header .app-icon {
         width: 30px !important;
         height: 30px !important;
     }
-
-    /* منطقة الكتابة تكون مريحة على الموبايل */
     textarea {
-        font-size: 16px !important; /* يمنع الزوم التلقائي على iOS */
+        font-size: 16px !important;
     }
-
-    /* الشريط الجانبي يختفي على الموبايل (لو ما عنده نظام hide تلقائي) */
     aside, .sidebar {
         max-width: 260px !important;
     }
@@ -165,15 +148,69 @@ header .app-icon {
     }
 }
 
-/* ===== 14. زر الإرسال يرجع أزرق أصلي ===== */
-div:has(> textarea) div[class*="bg-primary"],
-div:has(> textarea) button,
-.shrink-0:has(textarea) div[class*="bg-primary"] {
-    background-color: #2563EB !important;
-    border-radius: 8px !important;
+/* ======================================================== */
+/* 🚀 الخلطة السرية: منطقة الكتابة العائمة 🚀 */
+/* ======================================================== */
+
+/* أ) إخفاء النصوص المزعجة (عداد الحروف وجملة Send Enter) */
+div[class*="text-xs text-gray-"],
+div.text-xs,
+div:has(> textarea) + div span,
+div:has(> textarea) ~ div[class*="text-gray-400"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }
 
+/* ب) تحويل صندوق الكتابة إلى شكل عائم وبيضاوي (Floating Pill) */
+div[class*="relative"]:has(> textarea),
+.input-area {
+    background-color: #1A1A1A !important; /* لون رمادي داكن فخم يبرز عن الأسود */
+    border: 1px solid #C5A059 !important; /* إطار ذهبي أنيق */
+    border-radius: 9999px !important; /* حواف دائرية بالكامل */
+    padding: 12px 55px 12px 20px !important; /* مساحة داخلية مريحة مع ترك فراغ يمين للزر */
+    margin: 0 15px 20px 15px !important; /* رفع الصندوق عن أسفل الشاشة ليعطي تأثير الطفو */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5) !important; /* ظل يعطي عمق للتصميم */
+}
+
+/* ج) تفريغ مربع النص نفسه ليأخذ لون الحاوية العائمة */
+textarea {
+    background-color: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* د) سحب زر الإرسال ودمجه داخل الصندوق بشكل دائري */
+div[class*="relative"]:has(> textarea) button,
+div[class*="relative"]:has(> textarea) div[class*="bg-primary"],
+.shrink-0:has(textarea) div[class*="bg-primary"] {
+    background-color: #2563EB !important; /* اللون الأزرق الأصلي */
+    border-radius: 50% !important; /* زر دائري بالكامل */
+    width: 36px !important;
+    height: 36px !important;
+    position: absolute !important;
+    right: 8px !important; /* تثبيت الزر في أقصى اليمين داخل الصندوق */
+    bottom: 50% !important;
+    transform: translateY(50%) !important; /* توسيط الزر عمودياً */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* لون السهم داخل الزر */
 div:has(> textarea) svg,
 .shrink-0:has(textarea) svg {
     color: #FFFFFF !important;
+    width: 18px !important;
+    height: 18px !important;
 }
