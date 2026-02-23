@@ -12,11 +12,9 @@ html, body, #app-container, main, .chat-container {
 }
 
 /* ========================================== */
-/* 2. إخفاء الخطوط المزعجة (إلا صندوق الكتابة) */
+/* 2. إخفاء الخطوط المزعجة */
 /* ========================================== */
-[class*="border-gray-"] {
-    border-color: transparent !important;
-}
+[class*="border-gray-"] { border-color: transparent !important; }
 
 /* ========================================== */
 /* 3. الشريط الجانبي والهيدر */
@@ -29,15 +27,15 @@ header, div[class*="h-16"] { background-color: #212121 !important; }
     border-radius: 8px !important;
 }
 
-/* تنظيف الخلفيات البيضاء */
-.bg-white, div[class*="bg-blue-100"] { background-color: transparent !important; }
+/* 🚀 تنظيف الخلفيات البيضاء (باستثناء شاشة Clerk) 🚀 */
+.bg-white:not([class*="cl-"]), div[class*="bg-blue-100"]:not([class*="cl-"]) { 
+    background-color: transparent !important; 
+}
 
 /* ========================================== */
 /* 4. صورتك الشخصية */
 /* ========================================== */
-header .app-icon, 
-header div[class*="shrink-0"]:has(svg), 
-div[class*="chat-answer"] .app-icon {
+header .app-icon, header div[class*="shrink-0"]:has(svg), div[class*="chat-answer"] .app-icon {
     background-color: transparent !important;
     border-radius: 50% !important;
     background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
@@ -62,23 +60,21 @@ header .app-icon svg, header div[class*="shrink-0"] svg, div[class*="chat-answer
 /* ========================================== */
 /* 6. صندوق الكتابة (مرتب وبوردر واضح نفس ChatGPT) */
 /* ========================================== */
-/* الحاوية السفلية بالكامل */
 div[class*="absolute bottom-0"]:has(textarea), div[class*="p-4"]:has(textarea) {
     background: transparent !important;
     padding-bottom: 24px !important;
 }
 
-/* 🎯 تصميم الصندوق والإطار اللي يحدده 🎯 */
 div[class*="relative"]:has(> textarea), div[class*="flex"]:has(> textarea) {
     background-color: #2F2F2F !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important; /* هذا الخط الأبيض الشفاف اللي يحدد البوكس */
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
     border-radius: 26px !important;
-    padding: 12px 55px 12px 16px !important; /* مساحة يمين عشان الزر */
+    padding: 12px 55px 12px 16px !important;
     margin: 0 auto !important;
     max-width: 768px !important;
     width: 100% !important;
     position: relative !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important; /* ظل خفيف عشان يطوف بانسيابية */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
 }
 
 textarea {
@@ -96,9 +92,7 @@ textarea:focus { outline: none !important; }
 /* ========================================== */
 /* 7. زر الإرسال (السهم) ونسف الرقم صفر */
 /* ========================================== */
-/* زر الإرسال الأبيض */
-div[class*="relative"]:has(> textarea) button, 
-div[class*="relative"]:has(> textarea) div[class*="bg-primary"] {
+div[class*="relative"]:has(> textarea) button, div[class*="relative"]:has(> textarea) div[class*="bg-primary"] {
     position: absolute !important;
     right: 8px !important;
     bottom: 8px !important;
@@ -113,13 +107,12 @@ div[class*="relative"]:has(> textarea) div[class*="bg-primary"] {
     margin: 0 !important;
 }
 div[class*="relative"]:has(> textarea) svg { 
-    color: #212121 !important; /* سهم غامق */
+    color: #212121 !important;
     width: 16px !important; 
     height: 16px !important;
     display: block !important;
 }
 
-/* 🚀 قناص الرقم صفر: إخفاء أي شيء جنب السهم (ما عدا السهم نفسه) 🚀 */
 div[class*="relative"]:has(> textarea) > div[class*="absolute"] > div:not(:has(svg)):not(button),
 div[class*="relative"]:has(> textarea) > div[class*="absolute"] > span {
     display: none !important;
@@ -128,9 +121,21 @@ div[class*="relative"]:has(> textarea) > div[class*="absolute"] > span {
 }
 
 /* ========================================== */
-/* 8. إخفاء الحقوق والأزرار الجانبية */
+/* 8. إخفاء الحقوق وتصحيح نصوص Clerk */
 /* ========================================== */
 a[href*="dify.ai"], .powered-by, img[alt*="dify"] { display: none !important; }
-.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 { color: #ECECEC !important; }
-h1, h2, .font-bold, .font-medium { color: #ECECEC !important; }
-button[class*="bg-primary"], .btn-primary { background-color: #2F2F2F !important; color: #ECECEC !important; }
+
+/* 🚀 حماية شاشة تسجيل الدخول Clerk من أكواد الألوان السابقة 🚀 */
+.text-gray-900:not([class*="cl-"]), .text-gray-800:not([class*="cl-"]), .text-gray-700:not([class*="cl-"]) { color: #ECECEC !important; }
+h1:not([class*="cl-"]), h2:not([class*="cl-"]), .font-bold:not([class*="cl-"]), .font-medium:not([class*="cl-"]) { color: #ECECEC !important; }
+button[class*="bg-primary"]:not([class*="cl-"]), .btn-primary:not([class*="cl-"]) { background-color: #2F2F2F !important; color: #ECECEC !important; }
+
+/* 🚀 تصميم زر Log in بالهيدر 🚀 */
+.login-btn {
+    background-color: #ECECEC !important;
+    color: #212121 !important; /* لون النص غامق عشان يبين */
+    font-weight: 500 !important;
+    padding: 6px 16px !important;
+    border-radius: 9999px !important;
+}
+.login-btn:hover { background-color: #FFFFFF !important; }
