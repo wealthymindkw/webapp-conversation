@@ -21,12 +21,8 @@ html, body, #app-container, main, .chat-container {
 /* ========================================== */
 /* 3. الشريط الجانبي والهيدر */
 /* ========================================== */
-aside, .sidebar, div[class*="w-[240px]"] {
-    background-color: #171717 !important;
-}
-header, div[class*="h-16"] {
-    background-color: #212121 !important;
-}
+aside, .sidebar, div[class*="w-[240px]"] { background-color: #171717 !important; }
+header, div[class*="h-16"] { background-color: #212121 !important; }
 .bg-primary-50, div[class*="bg-primary-50"] {
     background-color: #2F2F2F !important;
     color: #ECECEC !important;
@@ -34,14 +30,11 @@ header, div[class*="h-16"] {
 }
 
 /* تنظيف الخلفيات البيضاء */
-.bg-white, div[class*="bg-blue-100"] {
-    background-color: transparent !important;
-}
+.bg-white, div[class*="bg-blue-100"] { background-color: transparent !important; }
 
 /* ========================================== */
-/* 4. صورتك الشخصية (تصحيح الخطأ) */
+/* 4. صورتك الشخصية */
 /* ========================================== */
-/* الحين نستهدف الهيدر وأيقونات المحادثة بس! عشان ما نخرب زر الإرسال */
 header .app-icon, 
 header div[class*="shrink-0"]:has(svg), 
 div[class*="chat-answer"] .app-icon {
@@ -51,9 +44,7 @@ div[class*="chat-answer"] .app-icon {
     background-size: cover !important;
     background-position: center !important;
 }
-header .app-icon svg, header div[class*="shrink-0"] svg, div[class*="chat-answer"] .app-icon svg { 
-    display: none !important; 
-}
+header .app-icon svg, header div[class*="shrink-0"] svg, div[class*="chat-answer"] .app-icon svg { display: none !important; }
 
 /* ========================================== */
 /* 5. فقاعات المحادثة */
@@ -71,21 +62,23 @@ header .app-icon svg, header div[class*="shrink-0"] svg, div[class*="chat-answer
 /* ========================================== */
 /* 6. صندوق الكتابة (مرتب وبوردر واضح نفس ChatGPT) */
 /* ========================================== */
+/* الحاوية السفلية بالكامل */
 div[class*="absolute bottom-0"]:has(textarea), div[class*="p-4"]:has(textarea) {
     background: transparent !important;
     padding-bottom: 24px !important;
 }
 
-/* تصميم المربع والإطار */
-div:has(> textarea), .input-area {
+/* 🎯 تصميم الصندوق والإطار اللي يحدده 🎯 */
+div[class*="relative"]:has(> textarea), div[class*="flex"]:has(> textarea) {
     background-color: #2F2F2F !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important; /* إطار خفيف وأنيق */
-    border-radius: 24px !important;
-    padding: 12px 50px 12px 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important; /* هذا الخط الأبيض الشفاف اللي يحدد البوكس */
+    border-radius: 26px !important;
+    padding: 12px 55px 12px 16px !important; /* مساحة يمين عشان الزر */
     margin: 0 auto !important;
     max-width: 768px !important;
     width: 100% !important;
     position: relative !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important; /* ظل خفيف عشان يطوف بانسيابية */
 }
 
 textarea {
@@ -96,18 +89,21 @@ textarea {
     padding: 0 !important;
     border: none !important;
     box-shadow: none !important;
+    line-height: 1.5 !important;
 }
 textarea:focus { outline: none !important; }
 
 /* ========================================== */
-/* 7. زر الإرسال (طرد صورتك وإرجاع السهم) */
+/* 7. زر الإرسال (السهم) ونسف الرقم صفر */
 /* ========================================== */
-div:has(> textarea) button, div:has(> textarea) div[class*="bg-primary"] {
+/* زر الإرسال الأبيض */
+div[class*="relative"]:has(> textarea) button, 
+div[class*="relative"]:has(> textarea) div[class*="bg-primary"] {
     position: absolute !important;
     right: 8px !important;
     bottom: 8px !important;
     background-color: #ECECEC !important;
-    background-image: none !important; /* هني مسحنا صورتك اللي لزقت بالغلط */
+    background-image: none !important; 
     border-radius: 50% !important;
     width: 32px !important;
     height: 32px !important;
@@ -116,16 +112,19 @@ div:has(> textarea) button, div:has(> textarea) div[class*="bg-primary"] {
     justify-content: center !important;
     margin: 0 !important;
 }
-div:has(> textarea) svg { 
-    color: #212121 !important; /* لون السهم غامق */
+div[class*="relative"]:has(> textarea) svg { 
+    color: #212121 !important; /* سهم غامق */
     width: 16px !important; 
+    height: 16px !important;
     display: block !important;
 }
 
-/* إخفاء الرقم صفر "0" والمربعات الغريبة تحته */
-div:has(> textarea) + div, div:has(> textarea) ~ div {
+/* 🚀 قناص الرقم صفر: إخفاء أي شيء جنب السهم (ما عدا السهم نفسه) 🚀 */
+div[class*="relative"]:has(> textarea) > div[class*="absolute"] > div:not(:has(svg)):not(button),
+div[class*="relative"]:has(> textarea) > div[class*="absolute"] > span {
     display: none !important;
     opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 /* ========================================== */
