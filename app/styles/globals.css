@@ -17,7 +17,7 @@ main, .chat-container, div[class*="bg-white"], div[class*="bg-gray"] {
 }
 
 /* ========================================== */
-/* 3. الهيدر - يكون فوق السايدبار دائماً */
+/* 2. الهيدر - يكون فوق السايدبار دائماً */
 /* ========================================== */
 header, .header,
 div[class*="border-b-gray-200"],
@@ -26,63 +26,30 @@ div[class*="border-b-gray-200"],
     backdrop-filter: blur(12px) !important;
     border-color: rgba(255,255,255,0.06) !important;
     position: relative !important;
-    z-index: 40 !important;
+    z-index: 50 !important; /* تم رفعه لضمان عدم التداخل */
 }
 
 /* ========================================== */
-/* 2. الشريط الجانبي - تحت الهيدر */
+/* 3. الشريط الجانبي (Sidebar) */
 /* ========================================== */
+/* شلنا أكواد الموبايل المعقدة لأن ملف index.tsx صار يتكفل فيها */
 aside, .sidebar,
 div[class*="border-r-gray-200"],
 .flex-col.h-full.border-r {
     background: linear-gradient(180deg, #0a0e1a 0%, #080b14 100%) !important;
     border-color: rgba(255,255,255,0.06) !important;
     color: #F9FAFB !important;
-    z-index: 30 !important;
-    position: relative !important;
-}
-
-/* موبايل: السايدبار يبدأ من تحت الهيدر */
-@media (max-width: 768px) {
-    /* الكونتينر اللي يحتوي السايدبار كـ overlay */
-    div[class*="mobile:w-[240px]"],
-    div[class*="mobile:w-"] {
-        margin-top: 0 !important;
-    }
-
-    /* السايدبار نفسه يأخذ ارتفاع أقل من الشاشة بمقدار الهيدر */
-    div[class*="mobile:h-screen"],
-    div[class*="mobile:w-[240px]"].shrink-0 {
-        height: calc(100vh - 3rem) !important;
-        margin-top: 3rem !important;
-        position: relative !important;
-        z-index: 30 !important;
-    }
 }
 
 /* ========================================== */
-/* 4. تلوين الخلفيات البيضاء */
+/* 4. تلوين الخلفيات البيضاء وتصحيح النصوص */
 /* ========================================== */
-.bg-white, .bg-gray-50, .bg-gray-100 {
-    background-color: #0d1117 !important;
-}
+.bg-white, .bg-gray-50, .bg-gray-100 { background-color: transparent !important; }
+.border-gray-200, .border-gray-100 { border-color: rgba(255,255,255,0.06) !important; }
 
-.border-gray-200, .border-gray-100 {
-    border-color: rgba(255,255,255,0.06) !important;
-}
+footer, .footer { background: transparent !important; color: #4B5563 !important; }
 
-footer, .footer {
-    background: transparent !important;
-    color: #4B5563 !important;
-}
-
-/* ========================================== */
-/* 5. النصوص */
-/* ========================================== */
-.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 {
-    color: #E5E7EB !important;
-}
-
+.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 { color: #E5E7EB !important; }
 h1, .font-bold { color: #ffffff !important; }
 h2, .font-medium { color: #cbd5e1 !important; }
 
@@ -92,11 +59,9 @@ h2, .font-medium { color: #cbd5e1 !important; }
 }
 
 /* ========================================== */
-/* 6. أيقونة الهيدر */
+/* 5. أيقونة الهيدر وإخفاء الحقوق */
 /* ========================================== */
-a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by {
-    display: none !important;
-}
+a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by { display: none !important; }
 
 .app-icon, header .app-icon, header .w-8.h-8 {
     background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
@@ -110,38 +75,22 @@ a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by {
 header svg:first-child, .app-icon svg { display: none !important; }
 
 /* ========================================== */
-/* 7. إخفاء Tooltip "Send Enter" نهائياً */
+/* 6. إخفاء العناصر المزعجة (النصوص والعداد) */
 /* ========================================== */
-#send-tip,
-[id="send-tip"],
-div[id="send-tip"],
-.rc-tooltip,
-.rc-tooltip-inner,
-.rc-tooltip-placement-top,
-div[class*="rc-tooltip"] {
+#send-tip, [id="send-tip"], .rc-tooltip,
+.text-xs.text-gray-500, div[class*="text-xs text-gray-"] {
     display: none !important;
-    visibility: hidden !important;
     opacity: 0 !important;
-    pointer-events: none !important;
 }
-
-/* إخفاء عداد الحروف */
-.text-xs.text-gray-500,
-div[class*="text-xs text-gray-"] {
-    display: none !important;
-}
-
-/* إخفاء عنوان المحادثة */
 div[class*="items-center justify-between"]:not(header) .font-semibold,
 div[class*="shrink-0 h-"]:has(+ div[class*="overflow"]) span {
     display: none !important;
 }
 
 /* ========================================== */
-/* 8. فقاعة المستخدم - زرقاء */
+/* 7. فقاعات المحادثة (User + Bot) */
 /* ========================================== */
-.mr-2.py-3.px-4.bg-blue-500,
-div[class*="bg-blue-500"] {
+.mr-2.py-3.px-4.bg-blue-500, div[class*="bg-blue-500"] {
     background: linear-gradient(135deg, #2563EB, #1d4ed8) !important;
     border-radius: 20px 20px 4px 20px !important;
     color: #ffffff !important;
@@ -149,11 +98,7 @@ div[class*="bg-blue-500"] {
     border: none !important;
 }
 
-/* ========================================== */
-/* 9. فقاعة البوت - رمادي داكن */
-/* ========================================== */
-.ml-2.py-3.px-4.bg-gray-100,
-div[class*="bg-gray-100"] {
+.ml-2.py-3.px-4.bg-gray-100, div[class*="bg-gray-100"] {
     background: rgba(22, 28, 45, 0.95) !important;
     border-radius: 4px 20px 20px 20px !important;
     color: #F1F5F9 !important;
@@ -162,29 +107,26 @@ div[class*="bg-gray-100"] {
 }
 
 /* ========================================== */
-/* 10. صندوق الكتابة السفلي */
+/* 8. صندوق الكتابة السفلي (المشكلة انحلت هنا) */
 /* ========================================== */
-div[class*="p-4"]:has(textarea),
+/* تأمين مساحة الصندوق بالأسفل */
 div[class*="absolute bottom-0"]:has(textarea),
-div[class*="border-t"]:has(textarea),
-div[class*="p-[5.5px]"] {
+div[class*="p-4"]:has(textarea) {
     background: transparent !important;
     border: none !important;
+    padding-bottom: 20px !important; /* يعطي مساحة للصندوق عشان يطوف */
 }
 
-div:has(> textarea) {
+/* تصميم الصندوق العائم */
+div[class*="relative"]:has(> textarea),
+div[class*="flex"]:has(> textarea) {
     background: rgba(12, 16, 28, 0.9) !important;
     backdrop-filter: blur(10px) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 28px !important;
-    padding: 12px 52px 12px 18px !important;
-    margin: 0 12px 24px 12px !important;
+    padding: 10px 48px 10px 16px !important;
+    margin: 0 10px !important;
     box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
-    position: relative !important;
-}
-
-div:has(> textarea):focus-within {
-    border-color: rgba(197, 160, 89, 0.4) !important;
 }
 
 textarea {
@@ -200,12 +142,12 @@ textarea {
 textarea::placeholder { color: rgba(255,255,255,0.3) !important; }
 textarea:focus { outline: none !important; box-shadow: none !important; }
 
-/* زر الإرسال */
+/* زر الإرسال المدمج */
 div:has(> textarea) button,
 div:has(> textarea) div[class*="bg-primary"] {
     position: absolute !important;
-    right: 8px !important;
-    bottom: 8px !important;
+    right: 6px !important;
+    bottom: 6px !important;
     background: linear-gradient(135deg, #2563EB, #1d4ed8) !important;
     border-radius: 50% !important;
     width: 34px !important;
@@ -214,27 +156,19 @@ div:has(> textarea) div[class*="bg-primary"] {
     align-items: center !important;
     justify-content: center !important;
     margin: 0 !important;
-    box-shadow: 0 2px 8px rgba(37,99,235,0.4) !important;
 }
 div:has(> textarea) svg { color: #FFFFFF !important; width: 16px !important; height: 16px !important; }
 
 /* ========================================== */
-/* 11. ضبط حجم الأيقونات */
+/* 9. ضبط الأيقونات والأزرار الجانبية */
 /* ========================================== */
 svg { max-width: 24px !important; max-height: 24px !important; }
 
-/* ========================================== */
-/* 12. أزرار الشريط الجانبي */
-/* ========================================== */
 button[class*="bg-primary"], .btn-primary {
     background-color: #C5A059 !important;
     color: #000000 !important;
 }
-
-button[class*="text-gray-"], a[class*="text-gray-"] {
-    color: #E5E7EB !important;
-}
-
+button[class*="text-gray-"], a[class*="text-gray-"] { color: #E5E7EB !important; }
 button:hover[class*="bg-gray-"], a:hover[class*="bg-gray-"] {
     background-color: rgba(255,255,255,0.05) !important;
 }
