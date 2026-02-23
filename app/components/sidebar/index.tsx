@@ -89,7 +89,8 @@ const Sidebar: FC<ISidebarProps> = ({
         </a>
 
         <a
-          href="حط_رابط_المكالمة_هني"
+          href="https://wealthymindme.com/call
+"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center px-4 py-2 text-sm text-[#C5A059] bg-transparent border border-[#C5A059] rounded-md hover:bg-[#C5A05922] transition-colors font-serif text-center !border-opacity-50 !border-[0.5px]"
