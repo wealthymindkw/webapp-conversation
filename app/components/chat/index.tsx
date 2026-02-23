@@ -170,9 +170,11 @@ const Chat: FC<IChatProps> = ({
       </div>
       {
         !isHideSendInput && (
-          <div className='fixed z-10 bottom-0 left-1/2 transform -translate-x-1/2 pc:ml-[122px] tablet:ml-[96px] mobile:ml-0 pc:w-[794px] tablet:w-[794px] max-w-full mobile:w-full px-3.5'>
-            {/* أزلنا الكلاسات المزعجة (bg-white و border-gray) ليعمل مع تصميمنا الجديد */}
-            <div className='input-area relative p-[5.5px] max-h-[150px] rounded-2xl overflow-y-auto'>
+          // غيرنا bottom-0 إلى bottom-6 عشان نرفع البوكس عن الأرضية
+          <div className='fixed z-10 bottom-6 left-1/2 transform -translate-x-1/2 pc:ml-[122px] tablet:ml-[96px] mobile:ml-0 pc:w-[794px] tablet:w-[794px] max-w-full mobile:w-full px-3.5'>
+            
+            {/* فرضنا لون الخلفية والإطار من داخل الـ React عشان ما يتأثر بالـ CSS */}
+            <div className='input-area relative p-[6px] max-h-[150px] rounded-3xl overflow-y-auto' style={{ backgroundColor: '#2F2F2F', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
               {
                 visionConfig?.enabled && (
                   <>
@@ -209,7 +211,7 @@ const Chat: FC<IChatProps> = ({
               }
               <Textarea
                 className={`
-                  block w-full px-2 pr-[48px] py-[7px] leading-5 max-h-none text-base text-gray-700 outline-none appearance-none resize-none
+                  block w-full px-3 pr-[48px] py-[8px] leading-5 max-h-none text-base text-gray-100 outline-none appearance-none resize-none bg-transparent
                   ${visionConfig?.enabled && 'pl-12'}
                 `}
                 value={query}
@@ -218,10 +220,20 @@ const Chat: FC<IChatProps> = ({
                 onKeyDown={handleKeyDown}
                 autoSize
               />
-              <div className="absolute bottom-2 right-2 flex items-center h-8">
-                {/* تم مسح العداد والتلميحات من هنا نهائياً */}
-                <div className={`${s.sendBtn} send-btn bg-primary w-8 h-8 cursor-pointer rounded-full flex items-center justify-center`} onClick={handleSend}></div>
+              
+              <div className="absolute bottom-1.5 right-1.5 flex items-center">
+                {/* 🚀 زر الإرسال الجديد (سهم ChatGPT) 🚀 */}
+                <div 
+                  className="w-8 h-8 cursor-pointer rounded-full flex items-center justify-center bg-[#ECECEC] hover:bg-white transition-colors" 
+                  onClick={handleSend}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#212121" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
+                  </svg>
+                </div>
               </div>
+
             </div>
           </div>
         )
