@@ -5,95 +5,86 @@
 /* ========================================== */
 /* 1. الخلفية الأساسية (Flat Dark Mode نفس ChatGPT) */
 /* ========================================== */
-html, body, main, .chat-container, div[class*="bg-white"], div[class*="bg-gray"] {
+html, body, main, .chat-container, #app-container {
     background-color: #212121 !important; /* لون رمادي داكن مطفي */
     color: #ECECEC !important; /* نص أبيض مريح للعين */
-    min-height: 100vh !important;
-    background-image: none !important;
 }
 
 /* ========================================== */
-/* 2. الهيدر (بدون حدود عشان يندمج مع الخلفية) */
+/* 2. الشريط الجانبي (Sidebar) */
 /* ========================================== */
-header, .header,
-div[class*="border-b-gray-200"],
-.flex.items-center.justify-between.h-16 {
-    background-color: #212121 !important;
-    border: none !important; /* مسحنا الخط الفاصل */
-    box-shadow: none !important;
-    z-index: 50 !important;
-}
-
-/* ========================================== */
-/* 3. الشريط الجانبي (Sidebar) - أغمق بدرجة بسيطة */
-/* ========================================== */
-aside, .sidebar,
-div[class*="border-r-gray-200"],
-.flex-col.h-full.border-r {
-    background-color: #171717 !important; /* لون أغمق شوي للتميز المريح */
-    border: none !important;
+aside, .sidebar, div[class*="border-r-gray-200"], .flex-col.h-full.border-r {
+    background-color: #171717 !important; /* أغمق بدرجة بسيطة عشان يبرز */
+    border-right: none !important;
     color: #ECECEC !important;
 }
 
 /* ========================================== */
-/* 4. تنظيف النصوص وإلغاء الألوان القديمة */
+/* 3. الهيدر */
+/* ========================================== */
+header, .header, div[class*="border-b-gray-200"] {
+    background-color: #212121 !important;
+    border-bottom: none !important;
+}
+
+/* تنظيف الخلفيات البيضاء غصب */
+.bg-white, .bg-gray-50, .bg-gray-100 {
+    background-color: transparent !important;
+}
+
+/* ========================================== */
+/* 4. ألوان النصوص والخطوط */
 /* ========================================== */
 .text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 { color: #ECECEC !important; }
 h1, .font-bold, h2, .font-medium { color: #ECECEC !important; }
 
-/* لون التحديد في القائمة الجانبية */
-.bg-primary-50 {
-    background-color: #2F2F2F !important;
-    color: #ECECEC !important;
-    border-radius: 8px !important;
+/* ========================================== */
+/* 5. إخفاء شعار Dify والنصوص المزعجة */
+/* ========================================== */
+a[href*="dify.ai"], .powered-by, img[alt*="dify"], svg[class*="dify"] { display: none !important; }
+
+/* إخفاء جملة Send Enter وتلميحات الكيبورد */
+#send-tip, .rc-tooltip { display: none !important; opacity: 0 !important; }
+
+/* 🚀 نسف الرقم 0 (عداد الحروف) اللي طالع على اليمين 🚀 */
+div.text-xs, .text-xs.text-gray-500, 
+div:has(> textarea) + div span, 
+div:has(> textarea) ~ div[class*="text-xs"] {
+    display: none !important;
+    opacity: 0 !important;
 }
 
 /* ========================================== */
-/* 5. أيقونة الهيدر (نظيفة بدون إطار ذهبي) */
+/* 6. صورتك الشخصية (بدون إطار ذهبي) */
 /* ========================================== */
-a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by { display: none !important; }
-
+header svg:first-child, .app-icon svg { display: none !important; }
 .app-icon, header .app-icon, header .w-8.h-8 {
     background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
     background-size: cover !important;
     background-position: center !important;
-    border: none !important; /* مسحنا الإطار الذهبي */
+    border: none !important;
     border-radius: 50% !important;
     width: 32px !important;
     height: 32px !important;
-}
-header svg:first-child, .app-icon svg { display: none !important; }
-
-/* ========================================== */
-/* 6. إخفاء العناصر المزعجة */
-/* ========================================== */
-#send-tip, [id="send-tip"], .rc-tooltip,
-.text-xs.text-gray-500, div[class*="text-xs text-gray-"] {
-    display: none !important;
-    opacity: 0 !important;
-}
-div[class*="items-center justify-between"]:not(header) .font-semibold,
-div[class*="shrink-0 h-"]:has(+ div[class*="overflow"]) span {
-    display: none !important;
+    background-color: transparent !important;
 }
 
 /* ========================================== */
-/* 7. فقاعات المحادثة (نظيفة ومسطحة Flat) */
+/* 7. فقاعات المحادثة (Flat ومرتبة) */
 /* ========================================== */
 /* فقاعة المستخدم (رمادي فاتح) */
 .mr-2.py-3.px-4.bg-blue-500, div[class*="bg-blue-500"] {
     background-color: #2F2F2F !important;
-    border-radius: 18px !important;
     color: #ECECEC !important;
-    box-shadow: none !important;
+    border-radius: 18px !important;
     border: none !important;
+    box-shadow: none !important;
 }
-
-/* فقاعة البوت (شفافة لتندمج مع الخلفية) */
+/* فقاعة البوت (شفافة ومندمجة) */
 .ml-2.py-3.px-4.bg-gray-100, div[class*="bg-gray-100"] {
     background-color: transparent !important;
-    border-radius: 18px !important;
     color: #ECECEC !important;
+    border-radius: 18px !important;
     border: none !important;
     box-shadow: none !important;
 }
@@ -105,17 +96,16 @@ div[class*="absolute bottom-0"]:has(textarea),
 div[class*="p-4"]:has(textarea) {
     background: transparent !important;
     border: none !important;
-    padding-bottom: 20px !important;
 }
 
 div[class*="relative"]:has(> textarea),
 div[class*="flex"]:has(> textarea) {
-    background-color: #2F2F2F !important; /* لون الصندوق */
-    border: none !important; /* مسحنا الحدود */
+    background-color: #2F2F2F !important;
+    border: none !important;
     border-radius: 26px !important;
-    padding: 10px 48px 10px 16px !important;
-    margin: 0 10px !important;
-    box-shadow: none !important; /* مسحنا الظل */
+    padding: 12px 50px 12px 16px !important;
+    margin: 0 15px 20px 15px !important;
+    box-shadow: none !important;
 }
 
 textarea {
@@ -131,13 +121,13 @@ textarea {
 textarea::placeholder { color: #8E8E8E !important; }
 textarea:focus { outline: none !important; box-shadow: none !important; }
 
-/* زر الإرسال (دائري أبيض بداخله سهم غامق) */
+/* زر الإرسال (فاتح داخله سهم غامق) */
 div:has(> textarea) button,
 div:has(> textarea) div[class*="bg-primary"] {
     position: absolute !important;
     right: 8px !important;
     bottom: 8px !important;
-    background-color: #ECECEC !important; /* زر فاتح */
+    background-color: #ECECEC !important;
     border-radius: 50% !important;
     width: 32px !important;
     height: 32px !important;
@@ -145,12 +135,11 @@ div:has(> textarea) div[class*="bg-primary"] {
     align-items: center !important;
     justify-content: center !important;
     margin: 0 !important;
-    box-shadow: none !important;
 }
-div:has(> textarea) svg { color: #212121 !important; width: 16px !important; height: 16px !important; } /* سهم غامق */
+div:has(> textarea) svg { color: #212121 !important; width: 16px !important; height: 16px !important; }
 
 /* ========================================== */
-/* 9. الأزرار السفلية والجانبية */
+/* 9. الأزرار */
 /* ========================================== */
 svg { max-width: 24px !important; max-height: 24px !important; }
 
