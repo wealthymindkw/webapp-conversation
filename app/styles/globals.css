@@ -2,215 +2,109 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== 1. خلفية سوداء للصفحة كاملة ===== */
-html, body {
+/* ===== 1. الألوان الأساسية والهيدر والفوتر ===== */
+html, body, main, .chat-container, div[class*="bg-white"] {
     background-color: #000000 !important;
     color: #F9FAFB !important;
 }
 
-/* ===== 2. الشريط الجانبي ===== */
-aside, .sidebar, div[class*="border-r-gray-200"], .flex-col.h-full.border-r {
+aside, .sidebar, header, .header, 
+div[class*="border-r-gray-200"], div[class*="border-b-gray-200"] {
     background-color: #050505 !important;
     border-color: #C5A05944 !important;
     color: #F9FAFB !important;
 }
 
-/* ===== 3. الشريط العلوي (Header) ===== */
-header, .header, div[class*="border-b-gray-200"], .flex.items-center.justify-between.h-16 {
-    background-color: #000000 !important;
-    border-color: #C5A05944 !important;
-}
+footer, .footer { background-color: #000000 !important; color: #9CA3AF !important; }
 
-/* ===== 4. الفوتر ===== */
-footer, .footer {
-    background-color: #000000 !important;
-    color: #9CA3AF !important;
-}
-
-/* ===== 5. منطقة المحادثة ===== */
-main, .chat-container, div[class*="bg-white"] {
-    background-color: #000000 !important;
-}
-
-/* ===== 6. الأزرار والروابط ===== */
-button[class*="bg-primary"], .btn-primary {
-    background-color: #C5A059 !important;
-    color: #000000 !important;
-}
-
-button[class*="text-gray-"], a[class*="text-gray-"], .text-gray-700 {
-    color: #F9FAFB !important;
-}
-
-button:hover[class*="bg-gray-"], a:hover[class*="bg-gray-"] {
-    background-color: #C5A05922 !important;
-}
-
-/* ===== 7. العناوين والنصوص ===== */
-h1, .h1, .text-gray-900, .font-bold {
-    color: #F3E887 !important;
-}
-
-h2, .h2, .font-medium {
-    color: #C5A059 !important;
-}
-
+/* ===== 2. الأزرار والنصوص الذهبية ===== */
+button[class*="bg-primary"], .btn-primary { background-color: #C5A059 !important; color: #000000 !important; }
+h1, .font-bold { color: #F3E887 !important; }
+h2, .font-medium { color: #C5A059 !important; }
 .text-gradient {
     background: linear-gradient(91.58deg, #C5A059 -29.55%, #F3E887 75.22%) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
 }
 
-/* ===== 8. تدمير الخلفيات البيضاء ===== */
-.bg-white, .bg-gray-50, .bg-gray-100 {
-    background-color: #050505 !important;
+/* ===== 3. إخفاء شعار Dify بالكامل ===== */
+a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by { 
+    display: none !important; opacity: 0 !important; 
 }
 
-.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 {
-    color: #F9FAFB !important;
-}
-
-.border-gray-200, .border-gray-100 {
-    border-color: #C5A05944 !important;
-}
-
-.bg-primary-50 {
-    background-color: #111111 !important;
-    color: #C5A059 !important;
-}
-
-/* ===== 9. إخفاء شعار Dify ===== */
-a[href*="dify.ai"],
-img[alt*="dify"],
-svg[class*="dify"],
-.powered-by,
-div:has(> a[href*="dify.ai"]) {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-}
-
-/* ===== 10. إخفاء نص "New Conversation" من فوق الصورة ===== */
-header .text-sm,
-header .font-semibold,
-header p,
-header span:not([class*="sr-only"]),
-div[class*="border-b"] .font-semibold,
-div[class*="border-b"] .text-sm,
-.title,
-h1.title,
-.conversation-name,
-div[class*="text-center"] h1,
-div[class*="text-center"] p,
-.welcome-title,
-.app-name {
-    display: none !important;
-}
-
-/* ===== 11. أيقونة الهيدر فقط → إطار ذهبي ===== */
-.app-icon,
-header .app-icon {
+/* ===== 4. صورتك الشخصية (دائرية وفخمة) ===== */
+.app-icon, header .app-icon, header .w-8.h-8 {
     border: 2px solid #C5A059 !important;
     border-radius: 50% !important;
     overflow: hidden !important;
 }
 
-/* ===== 12. ضبط الأحجام للموبايل ===== */
-@media (max-width: 768px) {
-    header, .flex.items-center.justify-between.h-16 {
-        height: 52px !important;
-        padding: 0 12px !important;
-    }
-    .app-icon,
-    header .w-8.h-8,
-    header div[class*="shrink-0"],
-    div[class*="w-8 h-8"],
-    div[class*="w-10 h-10"] {
-        width: 30px !important;
-        height: 30px !important;
-    }
-    textarea {
-        font-size: 16px !important;
-    }
-    aside, .sidebar {
-        max-width: 260px !important;
-    }
-}
-
-/* ===== 13. ديسكتوب - ضمان التنسيق ===== */
-@media (min-width: 769px) {
-    .app-icon,
-    header .w-8.h-8,
-    div[class*="w-8 h-8"],
-    div[class*="w-10 h-10"] {
-        width: 36px !important;
-        height: 36px !important;
-    }
-}
-
 /* ======================================================== */
-/* 🚀 الخلطة السرية: منطقة الكتابة العائمة 🚀 */
+/* 🚀 الخلطة الجبرية: نسف الموبايل وصندوق الكتابة العائم 🚀 */
 /* ======================================================== */
 
-/* أ) إخفاء النصوص المزعجة (عداد الحروف وجملة Send Enter) */
-div[class*="text-xs text-gray-"],
-div.text-xs,
-div:has(> textarea) + div span,
-div:has(> textarea) ~ div[class*="text-gray-400"] {
+/* أ) إخفاء كلمة New Conversation اللي فوق بالكامل */
+div[class*="px-4 py-3 border-b"], 
+div[class*="flex items-center justify-between"]:has(.text-base.font-semibold),
+.text-base.font-semibold.text-gray-900 {
     display: none !important;
-    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+}
+
+/* ب) إخفاء الرقم صفر 0 والنصوص اللي تحت الصندوق */
+.text-xs.text-gray-500,
+div[class*="text-xs text-gray-"],
+div:has(> textarea) + div span,
+div:has(> textarea) ~ div {
+    display: none !important;
     opacity: 0 !important;
 }
 
-/* ب) تحويل صندوق الكتابة إلى شكل عائم وبيضاوي (Floating Pill) */
-div[class*="relative"]:has(> textarea),
-.input-area {
-    background-color: #1A1A1A !important; /* لون رمادي داكن فخم يبرز عن الأسود */
-    border: 1px solid #C5A059 !important; /* إطار ذهبي أنيق */
-    border-radius: 9999px !important; /* حواف دائرية بالكامل */
-    padding: 12px 55px 12px 20px !important; /* مساحة داخلية مريحة مع ترك فراغ يمين للزر */
-    margin: 0 15px 20px 15px !important; /* رفع الصندوق عن أسفل الشاشة ليعطي تأثير الطفو */
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5) !important; /* ظل يعطي عمق للتصميم */
+/* ج) تحرير الصندوق من القاع (إزالة الخلفية السوداء اللي تجبره ينزل) */
+div[class*="absolute bottom-0 w-full"]:has(textarea),
+div[class*="p-4"]:has(textarea) {
+    background: transparent !important;
+    padding-bottom: 25px !important; /* رفعه عن الأرضية */
 }
 
-/* ج) تفريغ مربع النص نفسه ليأخذ لون الحاوية العائمة */
+/* د) الصندوق العائم الدائري (Tony Robbins Style) */
+div[class*="flex"]:has(> div > textarea),
+div[class*="flex items-end"]:has(textarea) {
+    background-color: #1A1A1A !important;
+    border: 1px solid #C5A059 !important;
+    border-radius: 50px !important; /* حواف دائرية بالكامل */
+    padding: 6px 8px 6px 20px !important;
+    margin: 0 15px !important; /* مسافة من اليمين واليسار */
+    align-items: center !important; /* توسيط العناصر داخله */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
+}
+
+/* هـ) تفريغ مربع النص نفسه */
 textarea {
-    background-color: transparent !important;
+    background: transparent !important;
     border: none !important;
     color: #ffffff !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-textarea:focus {
-    outline: none !important;
+    font-size: 16px !important;
+    margin-bottom: 0 !important;
     box-shadow: none !important;
 }
+textarea:focus { outline: none !important; }
 
-/* د) سحب زر الإرسال ودمجه داخل الصندوق بشكل دائري */
-div[class*="relative"]:has(> textarea) button,
-div[class*="relative"]:has(> textarea) div[class*="bg-primary"],
-.shrink-0:has(textarea) div[class*="bg-primary"] {
-    background-color: #2563EB !important; /* اللون الأزرق الأصلي */
-    border-radius: 50% !important; /* زر دائري بالكامل */
+/* و) زر الإرسال الأزرق الدائري (ينسحب داخل الصندوق) */
+button[class*="bg-primary"]:has(svg),
+div[class*="bg-primary"]:has(svg) {
+    background-color: #2563EB !important;
+    border-radius: 50% !important;
     width: 36px !important;
     height: 36px !important;
-    position: absolute !important;
-    right: 8px !important; /* تثبيت الزر في أقصى اليمين داخل الصندوق */
-    bottom: 50% !important;
-    transform: translateY(50%) !important; /* توسيط الزر عمودياً */
+    min-width: 36px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    margin-left: 10px !important;
+    margin-bottom: 0 !important;
     padding: 0 !important;
-    margin: 0 !important;
 }
 
-/* لون السهم داخل الزر */
-div:has(> textarea) svg,
-.shrink-0:has(textarea) svg {
-    color: #FFFFFF !important;
-    width: 18px !important;
-    height: 18px !important;
-}
+div:has(> textarea) svg { color: #FFFFFF !important; }
