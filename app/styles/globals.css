@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ========================================== */
-/* 1. الأساسيات اللي تمنع ظهور أي لون أبيض */
+/* 1. الأساسيات - منع أي لون أبيض */
 /* ========================================== */
 html, body, main, .chat-container {
     background-color: #000000 !important;
@@ -17,7 +17,6 @@ div[class*="border-r-gray-200"], div[class*="border-b-gray-200"] {
     color: #F9FAFB !important;
 }
 
-/* التدمير الفعلي لأي خلفية بيضاء في الموبايل */
 .bg-white, .bg-gray-50, .bg-gray-100, div[class*="bg-white"] {
     background-color: #050505 !important;
 }
@@ -40,13 +39,12 @@ h2, .font-medium { color: #C5A059 !important; }
 }
 
 /* ========================================== */
-/* 3. صورتك الشخصية وإخفاء حقوق Dify */
+/* 3. الأيقونات وإخفاء Dify */
 /* ========================================== */
 a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by { 
     display: none !important; 
 }
 
-/* صورتك في الهيدر والمحادثة */
 .app-icon, header .app-icon, header .w-8.h-8 {
     background-image: url(https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/69984ecd63ae7520d51f9030.png) !important;
     background-size: cover !important;
@@ -58,7 +56,6 @@ a[href*="dify.ai"], img[alt*="dify"], svg[class*="dify"], .powered-by {
 }
 header svg:first-child, .app-icon svg { display: none !important; }
 
-/* إخفاء جملة New conversation المتداخلة فقط (بدون تدمير الهيدر) */
 div[class*="shrink-0"]:has(> div > .app-icon) + div span,
 header span.font-semibold {
     display: none !important;
@@ -66,17 +63,50 @@ header span.font-semibold {
 }
 
 /* ========================================== */
-/* 4. 🚀 صندوق الكتابة العائم (Tony Robbins) 🚀 */
+/* 4. إخفاء Tooltip "Send Enter" نهائياً */
 /* ========================================== */
-
-/* أ) إخفاء النصوص المزعجة (عداد الحروف وجملة الانتر) */
-.text-xs.text-gray-500, 
-div[class*="text-xs text-gray-"], 
-div:has(> textarea) + div span { 
-    display: none !important; 
+/* إخفاء الـ tooltip كامل */
+[id*="send-tip"],
+div[id*="send-tip"],
+.tippy-box,
+.tippy-content,
+[data-tippy-content],
+/* الـ tooltip الظاهر في الصورة */
+div.absolute:has(> div > span):not(:has(textarea)):not(:has(button)) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
-/* ب) مسح خلفية الحاوية السفلية عشان الصندوق يطوف */
+/* إخفاء عداد الحروف والنصوص الصغيرة */
+.text-xs.text-gray-500,
+div[class*="text-xs text-gray-"] {
+    display: none !important;
+}
+
+/* ========================================== */
+/* 5. تثبيت الهيدر (يبقى ثابت لما الكيبورد يطلع) */
+/* ========================================== */
+header,
+.flex.items-center.justify-between.h-16,
+div[class*="border-b"].flex.items-center {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 50 !important;
+    height: 56px !important;
+}
+
+/* تعويض المساحة اللي أخذها الهيدر الثابت */
+main, .chat-container, div[class*="h-full"]:not(html):not(body) {
+    padding-top: 56px !important;
+}
+
+/* ========================================== */
+/* 6. صندوق الكتابة العائم */
+/* ========================================== */
 div[class*="p-4"]:has(textarea),
 div[class*="absolute bottom-0"]:has(textarea),
 div[class*="border-t"]:has(textarea) {
@@ -84,18 +114,16 @@ div[class*="border-t"]:has(textarea) {
     border: none !important;
 }
 
-/* ج) الصندوق العائم نفسه (دائري ومرتب) */
 div:has(> textarea) {
-    background-color: #1A1A1A !important; /* لون رمادي فخم */
-    border: 1px solid #C5A059 !important; /* إطار ذهبي */
-    border-radius: 30px !important; /* حواف دائرية */
-    padding: 10px 50px 10px 15px !important; /* مساحة داخلية */
-    margin: 0 10px 15px 10px !important; /* رفعه عن الأرضية */
+    background-color: #1A1A1A !important;
+    border: 1px solid #C5A059 !important;
+    border-radius: 30px !important;
+    padding: 10px 50px 10px 15px !important;
+    margin: 0 10px 15px 10px !important;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
     position: relative !important;
 }
 
-/* د) مربع النص الداخلي */
 textarea {
     background: transparent !important;
     color: #ffffff !important;
@@ -103,18 +131,17 @@ textarea {
     box-shadow: none !important;
     padding: 0 !important;
     margin: 0 !important;
-    font-size: 16px !important; /* يمنع الزوم في الايفون */
+    font-size: 16px !important;
 }
 textarea:focus { outline: none !important; box-shadow: none !important; }
 
-/* هـ) زر الإرسال الأزرق (داخل الصندوق) */
 div:has(> textarea) button,
 div:has(> textarea) div[class*="bg-primary"] {
     position: absolute !important;
     right: 6px !important;
-    bottom: 6px !important; /* تثبيته بالزاوية اليمين تحت */
-    background-color: #2563EB !important; /* أزرق أصلي */
-    border-radius: 50% !important; /* دائري */
+    bottom: 6px !important;
+    background-color: #2563EB !important;
+    border-radius: 50% !important;
     width: 32px !important;
     height: 32px !important;
     display: flex !important;
@@ -125,6 +152,6 @@ div:has(> textarea) div[class*="bg-primary"] {
 div:has(> textarea) svg { color: #FFFFFF !important; width: 16px !important; }
 
 /* ========================================== */
-/* 5. ضبط حجم الأيقونات (لمنع مشكلة القلم العملاق) */
+/* 7. ضبط حجم الأيقونات */
 /* ========================================== */
 svg { max-width: 24px !important; max-height: 24px !important; }
