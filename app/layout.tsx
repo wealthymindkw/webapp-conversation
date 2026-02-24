@@ -4,8 +4,9 @@ import './styles/globals.css'
 import './styles/markdown.scss'
 import type { Metadata } from 'next'
 
-// 🚀 إعدادات الـ SEO والصور المحدثة 🚀
+// 🚀 إعدادات الـ SEO مع إضافة الـ metadataBase 🚀
 export const metadata: Metadata = {
+  metadataBase: new URL('https://chat.wealthymindme.com'), // ← هذا السطر السحري اللي كان ناقص
   title: 'Wealthy Mind',
   description: 'اكتشف إمكانياتك مع كوتش حمد',
   icons: {
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     siteName: 'Wealthy Mind',
     images: [
       {
-        url: 'https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/699d0bdc5dfd5064d29e7be9.png', // ← حط الرابط المباشر لصورة المشاركة (مقاس 1200x630)
+        url: 'https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/699d0bdc5dfd5064d29e7be9.png',
         width: 1200,
         height: 630,
         alt: 'Wealthy Mind',
@@ -33,11 +34,11 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Wealthy Mind',
     description: 'اكتشف إمكانياتك مع كوتش حمد',
-    images: ['https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/699d0bdc5dfd5064d29e7be9.png'], // ← حط نفس الرابط مرة ثانية هني
+    images: ['https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/699d0bdc5dfd5064d29e7be9.png'],
   },
 }
 
-// 🚀 كودك الأصلي وتصميم الموقع (ما مسكناه) 🚀
+// 🚀 كودك الأصلي وتصميم الموقع 🚀
 const LocaleLayout = async ({
   children,
 }: {
