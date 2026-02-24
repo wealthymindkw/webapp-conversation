@@ -155,13 +155,21 @@ div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
     visibility: hidden !important;
 }
 /* ========================================== */
-/* 11. حل مشكلة اختفاء الرسائل وراء صندوق الكتابة */
+/* 11. (تحديث) الحل الموزون لمشكلة المحادثات الطويلة والقصيرة */
 /* ========================================== */
-div[class*="overflow-y-auto"] {
-    padding-bottom: 140px !important; /* مساحة فاضية كافية عشان ترفع المحادثات */
+
+/* 1. إعادة الحشوة الطبيعية للحاوية (عشان المحادثات القصيرة ما تطير فوق) */
+div[class*="overflow-y-auto"] > div,
+#scrollable-content,
+.chat-container {
+    padding-bottom: 20px !important; /* رجعناها خفيفة وطبيعية */
 }
 
-/* احتياط إضافي لرفع آخر فقاعة محادثة */
-div[class*="overflow-y-auto"] > div > div:last-child {
-    margin-bottom: 40px !important; 
+/* 2. القوة الدافعة: إجبار "آخر رسالة فقط" إنها ترفع نفسها فوق الصندوق */
+/* هذا السطر السحري يستهدف آخر عنصر في قائمة الرسائل ويعطيه مسافة سفلية ضخمة */
+div[class*="flex-col"] > div[class*="flex"]:last-child,
+div[class*="chat-answer"]:last-child,
+div[class*="chat-message"]:last-child {
+    margin-bottom: 180px !important; /* هذي المسافة اللي ترفع النص عن البوكس الرمادي */
+    display: block !important; /* لضمان تطبيق المسافة */
 }
