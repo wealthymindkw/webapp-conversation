@@ -154,3 +154,14 @@ div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
     opacity: 0 !important;
     visibility: hidden !important;
 }
+/* ========================================== */
+/* 11. حل مشكلة اختفاء الرسائل وراء صندوق الكتابة */
+/* ========================================== */
+div[class*="overflow-y-auto"] {
+    padding-bottom: 140px !important; /* مساحة فاضية كافية عشان ترفع المحادثات */
+}
+
+/* احتياط إضافي لرفع آخر فقاعة محادثة */
+div[class*="overflow-y-auto"] > div > div:last-child {
+    margin-bottom: 40px !important; 
+}
