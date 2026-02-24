@@ -155,21 +155,22 @@ div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
     visibility: hidden !important;
 }
 /* ========================================== */
-/* 11. (تحديث) الحل الموزون لمشكلة المحادثات الطويلة والقصيرة */
+/* 11. الحل السحري والآمن (Spacer) لمساحة المحادثة السفلية */
 /* ========================================== */
 
-/* 1. إعادة الحشوة الطبيعية للحاوية (عشان المحادثات القصيرة ما تطير فوق) */
+/* 1. نصفر أي إعدادات قديمة سويناها عشان ترجع المحادثات طبيعية */
 div[class*="overflow-y-auto"] > div,
-#scrollable-content,
-.chat-container {
-    padding-bottom: 20px !important; /* رجعناها خفيفة وطبيعية */
+div[class*="flex-col"] > div[class*="flex"]:last-child,
+div[class*="chat-answer"]:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
-/* 2. القوة الدافعة: إجبار "آخر رسالة فقط" إنها ترفع نفسها فوق الصندوق */
-/* هذا السطر السحري يستهدف آخر عنصر في قائمة الرسائل ويعطيه مسافة سفلية ضخمة */
-div[class*="flex-col"] > div[class*="flex"]:last-child,
-div[class*="chat-answer"]:last-child,
-div[class*="chat-message"]:last-child {
-    margin-bottom: 180px !important; /* هذي المسافة اللي ترفع النص عن البوكس الرمادي */
-    display: block !important; /* لضمان تطبيق المسافة */
+/* 2. الخدعة السحرية: نصنع "صندوق شفاف" في آخر الصفحة يحجز مساحة صندوق الكتابة */
+div[class*="overflow-y-auto"] > div::after {
+    content: "" !important;
+    display: block !important;
+    height: 160px !important; /* نفس ارتفاع صندوق الكتابة تقريباً */
+    width: 100% !important;
+    flex-shrink: 0 !important;
 }
