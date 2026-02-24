@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         url: 'https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/699d0bdc5dfd5064d29e7be9.png', // ← حط الرابط المباشر لصورة المشاركة (مقاس 1200x630)
         width: 1200,
         height: 630,
-        alt: 'ولثي مايند - Wealthy Mind',
+        alt: 'Wealthy Mind',
       },
     ],
     locale: 'ar_AR',
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ولثي مايند',
-    description: 'اكتشف إمكانياتك مع كوتش حمد - مساعدك الذكي لتطوير الذات والأعمال',
+    title: 'Wealthy Mind',
+    description: 'اكتشف إمكانياتك مع كوتش حمد',
     images: ['https://assets.cdn.filesafe.space/rhWELETMkXWiHgXmcNv0/media/699d0bdc5dfd5064d29e7be9.png'], // ← حط نفس الرابط مرة ثانية هني
   },
 }
