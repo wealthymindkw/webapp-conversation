@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 /* ========================================== */
-/* 1. الخلفية الأساسية (ChatGPT Dark Mode) */
+/* 1. الخلفية الأساسية (ChatGPT Dark Mode) وحل الآيفون */
 /* ========================================== */
-html, body, #app-container, main, .chat-container {
+/* 🚀 تم التعديل إلى 100dvh عشان الشاشة تتفاعل مع الكيبورد صح 🚀 */
+html, body, #app-container, main, .chat-container, .h-screen, .h-full {
     background-color: #212121 !important;
     color: #ECECEC !important;
-    min-height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
 }
 
 /* ========================================== */
@@ -60,9 +62,12 @@ header .app-icon svg, header div[class*="shrink-0"] svg, div[class*="chat-answer
 /* ========================================== */
 /* 6. صندوق الكتابة (مرتب وبوردر واضح نفس ChatGPT) */
 /* ========================================== */
+/* 🚀 تمت إضافة pointer-events لحل مشكلة اللمس 🚀 */
 div[class*="absolute bottom-0"]:has(textarea), div[class*="p-4"]:has(textarea) {
     background: transparent !important;
     padding-bottom: 24px !important;
+    pointer-events: auto !important;
+    margin-bottom: env(safe-area-inset-bottom) !important;
 }
 
 div[class*="relative"]:has(> textarea), div[class*="flex"]:has(> textarea) {
@@ -75,6 +80,7 @@ div[class*="relative"]:has(> textarea), div[class*="flex"]:has(> textarea) {
     width: 100% !important;
     position: relative !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    pointer-events: auto !important;
 }
 
 textarea {
@@ -86,6 +92,7 @@ textarea {
     border: none !important;
     box-shadow: none !important;
     line-height: 1.5 !important;
+    pointer-events: auto !important;
 }
 textarea:focus { outline: none !important; }
 
@@ -125,17 +132,25 @@ div[class*="relative"]:has(> textarea) > div[class*="absolute"] > span {
 /* ========================================== */
 a[href*="dify.ai"], .powered-by, img[alt*="dify"] { display: none !important; }
 
-/* 🚀 حماية شاشة تسجيل الدخول Clerk من أكواد الألوان السابقة 🚀 */
 .text-gray-900:not([class*="cl-"]), .text-gray-800:not([class*="cl-"]), .text-gray-700:not([class*="cl-"]) { color: #ECECEC !important; }
 h1:not([class*="cl-"]), h2:not([class*="cl-"]), .font-bold:not([class*="cl-"]), .font-medium:not([class*="cl-"]) { color: #ECECEC !important; }
 button[class*="bg-primary"]:not([class*="cl-"]), .btn-primary:not([class*="cl-"]) { background-color: #2F2F2F !important; color: #ECECEC !important; }
 
-/* 🚀 تصميم زر Log in بالهيدر 🚀 */
 .login-btn {
     background-color: #ECECEC !important;
-    color: #212121 !important; /* لون النص غامق عشان يبين */
+    color: #212121 !important; 
     font-weight: 500 !important;
     padding: 6px 16px !important;
     border-radius: 9999px !important;
 }
 .login-btn:hover { background-color: #FFFFFF !important; }
+
+/* ========================================== */
+/* 9. إخفاء حقوق Secured by Clerk */
+/* ========================================== */
+div[class*="cl-internal"]:has(a[href*="clerk.com"]),
+div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
