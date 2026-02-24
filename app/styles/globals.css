@@ -156,27 +156,14 @@ div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
     padding-bottom: 140px !important;
 }
 /* ========================================== */
-/* 11. الحل النهائي لزر Clerk (ترتيب الطبقات) */
+/* 11. اختبار الرادار (استدعاء زر Clerk الحقيقي) */
 /* ========================================== */
-
-/* 1. إرجاع حاوية المحادثة للخلف بخطوة واحدة عشان ما تغطي اللي فوقها */
-#app-container, main, div[class*="flex-1"] {
-    position: relative !important;
-    z-index: 10 !important;
-}
-
-/* 2. سحب الهيدر بالكامل للأمام ليكون الطبقة الأولى للمس */
-header, div[class*="h-16"], div[class*="absolute top-0"] {
-    position: relative !important;
-    z-index: 9999 !important;
+.cl-rootBox {
+    position: fixed !important;
+    top: 16px !important;
+    left: 20px !important; /* راح نخليه يطفو يسار الشاشة بعيد عن أي زحمة */
+    z-index: 2147483647 !important;
     pointer-events: auto !important;
-}
-
-/* 3. تنشيط زر صورتك بشكل مباشر */
-.cl-rootBox, 
-button[class*="cl-userButtonTrigger"] {
-    position: relative !important;
-    z-index: 10000 !important;
-    cursor: pointer !important;
-    pointer-events: auto !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4) !important; /* إضاءة عشان نميزه */
+    border-radius: 50% !important;
 }
