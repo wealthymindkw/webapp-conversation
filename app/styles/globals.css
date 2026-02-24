@@ -71,8 +71,13 @@ button[class*="bg-primary"]:not([class*="cl-"]), .btn-primary:not([class*="cl-"]
 .login-btn { background-color: #ECECEC !important; color: #212121 !important; font-weight: 500 !important; padding: 6px 16px !important; border-radius: 9999px !important; }
 .login-btn:hover { background-color: #FFFFFF !important; }
 
-/* 9. إخفاء حقوق Clerk */
-div[class*="cl-internal"]:has(a[href*="clerk.com"]), div[class*="cl-internal"]:has(a[href*="clerk.dev"]) { display: none !important; opacity: 0 !important; visibility: hidden !important; }
+/* ========================================== */
+/* 9. إخفاء حقوق Clerk (بالطريقة الآمنة) */
+/* ========================================== */
+.cl-userButtonPopoverFooter, 
+.cl-watermark { 
+    display: none !important; 
+}
 
 /* 10. المساحة السفلية */
 #scrollable-content, div[class*="overflow-y-auto"] { padding-bottom: 140px !important; }
