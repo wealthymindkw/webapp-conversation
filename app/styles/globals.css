@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 /* ========================================== */
-/* 1. الخلفية الأساسية (بدون تدمير الصناديق الداخلية) */
+/* 1. الخلفية الأساسية */
 /* ========================================== */
 html, body, #app-container {
     background-color: #212121 !important;
     color: #ECECEC !important;
     height: 100dvh !important;
     max-width: 100vw !important;
-    overflow-x: hidden !important; /* لنسف أي سكرول عرضي */
+    overflow-x: hidden !important; 
 }
 
 /* ========================================== */
@@ -22,21 +22,36 @@ html, body, #app-container {
 /* 3. الشريط الجانبي والهيدر */
 /* ========================================== */
 aside, .sidebar, div[class*="w-[240px]"] { background-color: #171717 !important; }
-header, div[class*="h-16"] { background-color: #212121 !important; }
+header, div[class*="h-16"] { 
+    background-color: #212121 !important; 
+    position: relative !important;
+    z-index: 99999 !important; /* الهيدر كله فوق */
+    pointer-events: auto !important; /* ضمان استجابة الهيدر للمس */
+}
 .bg-primary-50, div[class*="bg-primary-50"] {
     background-color: #2F2F2F !important;
     color: #ECECEC !important;
     border-radius: 8px !important;
 }
 
-/* تنظيف الخلفيات البيضاء */
 .bg-white:not([class*="cl-"]), div[class*="bg-blue-100"]:not([class*="cl-"]) { 
     background-color: transparent !important; 
 }
 
 /* ========================================== */
-/* 4. صورتك الشخصية */
+/* 4. صورتك الشخصية (وحل مشكلة ضغطة زر Clerk هني) */
 /* ========================================== */
+/* 🚀 هذا الجزء مهم جداً عشان الزر ينضغط 🚀 */
+.cl-rootBox, 
+[class*="cl-userButton"], 
+.cl-userButtonTrigger,
+div[class*="flex"]:has(> .cl-rootBox) {
+    position: relative !important;
+    z-index: 2147483647 !important; 
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
 header .app-icon, header div[class*="shrink-0"]:has(svg), div[class*="chat-answer"] .app-icon {
     background-color: transparent !important;
     border-radius: 50% !important;
@@ -60,15 +75,17 @@ header .app-icon svg, header div[class*="shrink-0"] svg, div[class*="chat-answer
 }
 
 /* ========================================== */
-/* 6. صندوق الكتابة (مرتب وبوردر واضح نفس ChatGPT) */
+/* 6. صندوق الكتابة */
 /* ========================================== */
 div[class*="absolute bottom-0"]:has(textarea), div[class*="p-4"]:has(textarea) {
     background: transparent !important;
     padding-bottom: 24px !important;
-    pointer-events: auto !important;
+    pointer-events: none !important; /* نمنع الحاوية الوهمية من شفط اللمسات */
     margin-bottom: env(safe-area-inset-bottom) !important;
+    z-index: 50 !important;
 }
 
+/* نضمن إن الصندوق نفسه والزر يقبلون اللمس */
 div[class*="relative"]:has(> textarea), div[class*="flex"]:has(> textarea) {
     background-color: #2F2F2F !important;
     border: 1px solid rgba(255, 255, 255, 0.25) !important;
@@ -79,7 +96,7 @@ div[class*="relative"]:has(> textarea), div[class*="flex"]:has(> textarea) {
     width: 100% !important;
     position: relative !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
-    pointer-events: auto !important;
+    pointer-events: auto !important; 
 }
 
 textarea {
@@ -96,7 +113,7 @@ textarea {
 textarea:focus { outline: none !important; }
 
 /* ========================================== */
-/* 7. زر الإرسال (السهم) ونسف الرقم صفر */
+/* 7. زر الإرسال */
 /* ========================================== */
 div[class*="relative"]:has(> textarea) button, div[class*="relative"]:has(> textarea) div[class*="bg-primary"] {
     position: absolute !important;
@@ -111,6 +128,8 @@ div[class*="relative"]:has(> textarea) button, div[class*="relative"]:has(> text
     align-items: center !important;
     justify-content: center !important;
     margin: 0 !important;
+    pointer-events: auto !important;
+    z-index: 60 !important;
 }
 div[class*="relative"]:has(> textarea) svg { 
     color: #212121 !important;
@@ -141,6 +160,7 @@ button[class*="bg-primary"]:not([class*="cl-"]), .btn-primary:not([class*="cl-"]
     font-weight: 500 !important;
     padding: 6px 16px !important;
     border-radius: 9999px !important;
+    pointer-events: auto !important;
 }
 .login-btn:hover { background-color: #FFFFFF !important; }
 
@@ -155,36 +175,14 @@ div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
 }
 
 /* ========================================== */
-/* 10. المساحة السفلية للمحادثات (الحل الصحيح والآمن) */
+/* 10. المساحة السفلية للمحادثات */
 /* ========================================== */
-/* نستهدف فقط المربع القابل للسكرول ونعطيه مساحة من تحت تعادل حجم البوكس */
 #scrollable-content, div[class*="overflow-y-auto"] {
     padding-bottom: 140px !important;
-}
-/* ========================================== */
-/* 12. الحل الجذري لضغطة حساب Clerk والقائمة */
-/* ========================================== */
-
-/* 1. إعطاء زر صورتك أعلى رقم طبقة مسموح فيه بالمتصفح (عشان يكسر أي حاجز) */
-.cl-rootBox, 
-[class*="cl-userButton"], 
-.cl-userButtonTrigger {
-    position: relative !important;
-    z-index: 2147483647 !important; 
-    pointer-events: auto !important;
-    cursor: pointer !important;
+    pointer-events: auto !important; /* ضمان السكرول يشتغل */
 }
 
-/* 2. نتأكد إن الشريط العلوي بالكامل يسمح بمرور اللمسات */
-header, 
-div[class*="h-16"],
-div[class*="absolute top-0"] {
-    position: relative !important;
-    z-index: 99999 !important;
-    pointer-events: auto !important;
-}
-
-/* 3. ضمان ظهور القائمة المنسدلة (Manage Account) فوق كل شيء بدون قص */
+/* 🚀 ضمان ظهور القائمة المنسدلة (Manage Account) فوق كل شيء 🚀 */
 .cl-popoverBox, 
 .cl-userButtonPopoverRoot {
     z-index: 2147483647 !important;
