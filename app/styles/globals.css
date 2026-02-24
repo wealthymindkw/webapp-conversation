@@ -155,22 +155,23 @@ div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
     visibility: hidden !important;
 }
 /* ========================================== */
-/* 11. الحل السحري والآمن (Spacer) لمساحة المحادثة السفلية */
+/* 11. إصلاح المحادثات وإلغاء السكرول العرضي (الحل النهائي) */
 /* ========================================== */
 
-/* 1. نصفر أي إعدادات قديمة سويناها عشان ترجع المحادثات طبيعية */
-div[class*="overflow-y-auto"] > div,
-div[class*="flex-col"] > div[class*="flex"]:last-child,
-div[class*="chat-answer"]:last-child {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
+/* 1. نسف السكرول العرضي (الأسهم اللي تحت) وإرجاع الشاشة لحجمها الطبيعي */
+html, body, .overflow-x-auto {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
 }
 
-/* 2. الخدعة السحرية: نصنع "صندوق شفاف" في آخر الصفحة يحجز مساحة صندوق الكتابة */
+/* 2. مسح الخدعة القديمة (::after) اللي خربت الدنيا بالكامل */
 div[class*="overflow-y-auto"] > div::after {
-    content: "" !important;
-    display: block !important;
-    height: 160px !important; /* نفس ارتفاع صندوق الكتابة تقريباً */
-    width: 100% !important;
-    flex-shrink: 0 !important;
+    display: none !important;
+}
+
+/* 3. الطريقة الصحيحة لرفع المحادثة عن الصندوق بدون تخريب الـ Layout */
+/* نستهدف قائمة الرسائل نفسها ونعطيها مساحة "داخلية" من تحت فقط */
+div[class*="flex-col"]:has(> div[class*="chat-answer"]),
+div[class*="flex-col"]:has(> div[class*="chat-message"]) {
+    padding-bottom: 180px !important;
 }
