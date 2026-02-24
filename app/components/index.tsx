@@ -329,7 +329,7 @@ const Main: FC<IMainProps> = () => {
   if (!APP_ID || !APP_INFO || !promptConfig) { return <Loading type='app' /> }
 
   return (
-    <div className='h-screen flex flex-col overflow-hidden bg-[#212121]'>
+    <div className='h-screen flex flex-col bg-[#212121]'>
       <Header
         title={APP_INFO.title}
         isMobile={isMobile}
