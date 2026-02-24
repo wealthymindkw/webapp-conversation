@@ -21,29 +21,29 @@ const Header: FC<IHeaderProps> = ({
   onCreateNewChat,
 }) => {
   return (
-    <div className="shrink-0 flex items-center justify-between h-14 px-4 bg-transparent">
+    <div className="shrink-0 flex items-center justify-between h-14 px-4 bg-transparent relative z-[99999]">
       
-      {/* 1. الجانب الأيسر */}
-      {isMobile ? (
-        <div
-          className='flex items-center justify-center h-8 w-8 cursor-pointer'
-          onClick={() => onShowSideBar?.()}
-        >
-          <Bars3Icon className="h-5 w-5 text-gray-400" />
-        </div>
-      ) : (
-        <div className="w-8"></div>
-      )}
+      {/* 1. الجانب الأيسر (حجزنا له مساحة ثابتة عشان التوازن) */}
+      <div className="flex items-center w-24">
+        {isMobile && (
+          <div
+            className='flex items-center justify-center h-8 w-8 cursor-pointer relative z-[2147483647]'
+            onClick={() => onShowSideBar?.()}
+          >
+            <Bars3Icon className="h-5 w-5 text-gray-400" />
+          </div>
+        )}
+      </div>
 
-      {/* 2. المنتصف */}
-      <div className='flex items-center space-x-2'>
+      {/* 2. المنتصف (قفلناه بالنص مستحيل يتحرك يمين ويغطي الزر) */}
+      <div className='flex items-center justify-center space-x-2 flex-1 pointer-events-none'>
         <AppIcon size="small" />
         <div className="text-sm text-[#ECECEC] font-bold">{title}</div>
       </div>
 
-      {/* 3. الجانب الأيمن: (الحل النهائي) */}
-      {/* 🚀 سحبنا الزر من قفص الهيدر وخليناه يطفو فوق الشاشة بالكامل بخاصية fixed 🚀 */}
-      <div className='fixed top-3 right-4 z-[99999999] flex items-center space-x-3'>
+      {/* 3. الجانب الأيمن (زر Clerk) */}
+      {/* 🚀 عطيناه أعلى قوة بالمتصفح وحميناه من أي تداخل 🚀 */}
+      <div className='flex items-center justify-end space-x-3 w-24 relative z-[2147483647] pointer-events-auto'>
         {isMobile && (
           <div className='flex items-center justify-center h-8 w-8 cursor-pointer' onClick={() => onCreateNewChat?.()} >
             <PencilSquareIcon className="h-5 w-5 text-gray-400" />
@@ -62,7 +62,8 @@ const Header: FC<IHeaderProps> = ({
           <UserButton 
             appearance={{
               elements: {
-                userButtonAvatarBox: "w-8 h-8",
+                userButtonAvatarBox: "w-8 h-8 cursor-pointer",
+                userButtonPopoverCard: "z-[2147483647]"
               }
             }}
           />
