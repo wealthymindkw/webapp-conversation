@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 
 // 🚀 إعدادات الـ SEO مع إضافة الـ metadataBase 🚀
 export const metadata: Metadata = {
-  metadataBase: new URL('https://chat.wealthymindme.com'), // ← هذا السطر السحري اللي كان ناقص
+  metadataBase: new URL('https://chat.wealthymindme.com'),
   title: 'Wealthy Mind',
   description: 'اكتشف إمكانياتك مع كوتش حمد',
   icons: {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
 }
 
-// 🚀 كودك الأصلي وتصميم الموقع 🚀
+// 🚀 كودك الأصلي بعد تنظيفه من قفص الـ overflow 🚀
 const LocaleLayout = async ({
   children,
 }: {
@@ -49,10 +49,9 @@ const LocaleLayout = async ({
     <ClerkProvider>
       <html lang={locale ?? 'en'} className="h-full">
         <body className="h-full">
-          <div className="overflow-x-auto">
-            <div className="w-screen h-screen min-w-[300px]">
-              {children}
-            </div>
+          {/* تم إزالة القفص (overflow-x-auto) عشان القائمة تقدر تفتح براحتها */}
+          <div className="w-full h-full min-w-[300px]">
+            {children}
           </div>
         </body>
       </html>
