@@ -329,14 +329,20 @@ const Main: FC<IMainProps> = () => {
   if (!APP_ID || !APP_INFO || !promptConfig) { return <Loading type='app' /> }
 
   return (
-    <div className='h-screen flex flex-col bg-[#212121]'>
-      <Header
-        title={APP_INFO.title}
-        isMobile={isMobile}
-        onShowSideBar={showSidebar}
-        onCreateNewChat={() => handleConversationIdChange('-1')}
-      />
-      <div className="flex flex-1 overflow-hidden relative">
+    <div className='h-screen flex flex-col overflow-hidden bg-[#212121]'>
+      
+      {/* 🚀 السر هني: غلفنا الهيدر بكبسولة حماية تعزله عن المحادثة وتخليه ينضغط 🚀 */}
+      <div className="relative z-[99999] shrink-0 w-full pointer-events-auto">
+        <Header
+          title={APP_INFO.title}
+          isMobile={isMobile}
+          onShowSideBar={showSidebar}
+          onCreateNewChat={() => handleConversationIdChange('-1')}
+        />
+      </div>
+
+      {/* 🚀 عطينا صندوق المحادثة z-10 عشان يظل محترم نفسه "تحت" الهيدر ومستحيل يغطيه 🚀 */}
+      <div className="flex flex-1 overflow-hidden relative z-10">
         {/* Sidebar - ديسكتوب */}
         {!isMobile && renderSidebar()}
 
