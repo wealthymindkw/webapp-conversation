@@ -161,3 +161,21 @@ div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
 #scrollable-content, div[class*="overflow-y-auto"] {
     padding-bottom: 140px !important;
 }
+/* ========================================== */
+/* 11. إصلاح ضغطة زر الحساب (Clerk Button) */
+/* ========================================== */
+
+/* رفع الهيدر بالكامل فوق أي محادثة أو زجاج شفاف */
+header, div[class*="h-16"] {
+    position: relative !important;
+    z-index: 9990 !important;
+}
+
+/* إعطاء الأولوية القصوى لزر صورتك عشان يلقط اللمسة فوراً */
+div[class*="cl-rootBox"], 
+button[class*="cl-userButtonTrigger"] {
+    position: relative !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
