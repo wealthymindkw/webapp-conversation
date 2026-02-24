@@ -162,20 +162,31 @@ div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
     padding-bottom: 140px !important;
 }
 /* ========================================== */
-/* 11. إصلاح ضغطة زر الحساب (Clerk Button) */
+/* 12. الحل الجذري لضغطة حساب Clerk والقائمة */
 /* ========================================== */
 
-/* رفع الهيدر بالكامل فوق أي محادثة أو زجاج شفاف */
-header, div[class*="h-16"] {
+/* 1. إعطاء زر صورتك أعلى رقم طبقة مسموح فيه بالمتصفح (عشان يكسر أي حاجز) */
+.cl-rootBox, 
+[class*="cl-userButton"], 
+.cl-userButtonTrigger {
     position: relative !important;
-    z-index: 9990 !important;
-}
-
-/* إعطاء الأولوية القصوى لزر صورتك عشان يلقط اللمسة فوراً */
-div[class*="cl-rootBox"], 
-button[class*="cl-userButtonTrigger"] {
-    position: relative !important;
-    z-index: 9999 !important;
+    z-index: 2147483647 !important; 
     pointer-events: auto !important;
     cursor: pointer !important;
+}
+
+/* 2. نتأكد إن الشريط العلوي بالكامل يسمح بمرور اللمسات */
+header, 
+div[class*="h-16"],
+div[class*="absolute top-0"] {
+    position: relative !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+}
+
+/* 3. ضمان ظهور القائمة المنسدلة (Manage Account) فوق كل شيء بدون قص */
+.cl-popoverBox, 
+.cl-userButtonPopoverRoot {
+    z-index: 2147483647 !important;
+    pointer-events: auto !important;
 }
