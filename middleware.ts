@@ -4,8 +4,13 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isProtectedRoute = createRouteMatcher(['/(.*)']);
 
 export default clerkMiddleware(async (auth, req) => {
-  // 2. إذا المستخدم حاول يدخل صفحة محمية وهو مو مسجل دخول، اطلب منه يسجل دخول غصب
-  if (isProtectedRoute(req)) {
+  // 🚀 2. سحب هوية الزائر (هل هو إنسان ولا روبوت واتساب/تيليجرام؟) 🚀
+  const userAgent = req.headers.get('user-agent') || '';
+  const isBot = /bot|whatsapp|telegram|twitter|facebook|linkedin|skype|viber/i.test(userAgent);
+
+  // 🚀 3. إذا كان إنسان (مو روبوت) وحاول يدخل، اطلب منه يسجل دخول غصب 🚀
+  // أما الروبوتات فراح نعطيهم استثناء يقرأون الـ SEO عشان تطلع الصورة!
+  if (isProtectedRoute(req) && !isBot) {
     await auth.protect();
   }
 });
