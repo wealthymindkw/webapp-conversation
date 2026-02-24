@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 /* ========================================== */
-/* 1. الخلفية الأساسية (ChatGPT Dark Mode) وحل الآيفون */
+/* 1. الخلفية الأساسية (بدون تدمير الصناديق الداخلية) */
 /* ========================================== */
-/* 🚀 تم التعديل إلى 100dvh عشان الشاشة تتفاعل مع الكيبورد صح 🚀 */
-html, body, #app-container, main, .chat-container, .h-screen, .h-full {
+html, body, #app-container {
     background-color: #212121 !important;
     color: #ECECEC !important;
     height: 100dvh !important;
-    min-height: 100dvh !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important; /* لنسف أي سكرول عرضي */
 }
 
 /* ========================================== */
@@ -29,7 +29,7 @@ header, div[class*="h-16"] { background-color: #212121 !important; }
     border-radius: 8px !important;
 }
 
-/* 🚀 تنظيف الخلفيات البيضاء (باستثناء شاشة Clerk) 🚀 */
+/* تنظيف الخلفيات البيضاء */
 .bg-white:not([class*="cl-"]), div[class*="bg-blue-100"]:not([class*="cl-"]) { 
     background-color: transparent !important; 
 }
@@ -62,7 +62,6 @@ header .app-icon svg, header div[class*="shrink-0"] svg, div[class*="chat-answer
 /* ========================================== */
 /* 6. صندوق الكتابة (مرتب وبوردر واضح نفس ChatGPT) */
 /* ========================================== */
-/* 🚀 تمت إضافة pointer-events لحل مشكلة اللمس 🚀 */
 div[class*="absolute bottom-0"]:has(textarea), div[class*="p-4"]:has(textarea) {
     background: transparent !important;
     padding-bottom: 24px !important;
@@ -154,24 +153,11 @@ div[class*="cl-internal"]:has(a[href*="clerk.dev"]) {
     opacity: 0 !important;
     visibility: hidden !important;
 }
+
 /* ========================================== */
-/* 11. إصلاح المحادثات وإلغاء السكرول العرضي (الحل النهائي) */
+/* 10. المساحة السفلية للمحادثات (الحل الصحيح والآمن) */
 /* ========================================== */
-
-/* 1. نسف السكرول العرضي (الأسهم اللي تحت) وإرجاع الشاشة لحجمها الطبيعي */
-html, body, .overflow-x-auto {
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-}
-
-/* 2. مسح الخدعة القديمة (::after) اللي خربت الدنيا بالكامل */
-div[class*="overflow-y-auto"] > div::after {
-    display: none !important;
-}
-
-/* 3. الطريقة الصحيحة لرفع المحادثة عن الصندوق بدون تخريب الـ Layout */
-/* نستهدف قائمة الرسائل نفسها ونعطيها مساحة "داخلية" من تحت فقط */
-div[class*="flex-col"]:has(> div[class*="chat-answer"]),
-div[class*="flex-col"]:has(> div[class*="chat-message"]) {
-    padding-bottom: 180px !important;
+/* نستهدف فقط المربع القابل للسكرول ونعطيه مساحة من تحت تعادل حجم البوكس */
+#scrollable-content, div[class*="overflow-y-auto"] {
+    padding-bottom: 140px !important;
 }
