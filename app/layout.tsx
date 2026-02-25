@@ -1,5 +1,3 @@
-تقصد هذا:
-
 import { ClerkProvider } from '@clerk/nextjs'
 import { getLocaleOnServer } from '@/i18n/server'
 import './styles/globals.css'
