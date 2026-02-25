@@ -38,7 +38,6 @@ export const metadata: Metadata = {
   },
 }
 
-// 🚀 كودك الأصلي بعد تنظيفه من قفص الـ overflow 🚀
 const LocaleLayout = async ({
   children,
 }: {
@@ -46,7 +45,25 @@ const LocaleLayout = async ({
 }) => {
   const locale = await getLocaleOnServer()
   return (
-    <ClerkProvider>
+    // 🚀 السحر هني: برمجنا Clerk عشان يصير لونه فخم ويطابق موقعك 🚀
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: '#ECECEC', // لون الأزرار الأساسية (صار فاتح بدال البنفسجي)
+          colorBackground: '#2F2F2F', // خلفية المربع رمادي غامق نفس رسائل البوت
+          colorText: '#ECECEC', // لون النصوص فاتح
+          colorInputBackground: '#212121', // لون خانة الكتابة من داخل أغمق بشوي
+          colorInputText: '#ECECEC', // لون الخط داخل الخانة
+        },
+        elements: {
+          formButtonPrimary: 'text-[#212121] bg-[#ECECEC] hover:bg-white font-bold transition-colors', // تعديل نص الزر الرئيسي
+          card: 'shadow-2xl border border-gray-700 rounded-2xl', // إطار فخم للمربع
+          footerActionLink: 'text-[#ECECEC] font-bold hover:opacity-80', // رابط تسجيل الدخول اللي تحت
+          headerTitle: 'text-2xl font-bold', // عنوان الصفحة
+          headerSubtitle: 'text-gray-400', // النص الفرعي
+        }
+      }}
+    >
       <html lang={locale ?? 'en'} className="h-full">
         <body className="h-full">
           {/* تم إزالة القفص (overflow-x-auto) عشان القائمة تقدر تفتح براحتها */}
