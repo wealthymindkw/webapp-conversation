@@ -24,9 +24,13 @@ const Header: FC<IHeaderProps> = ({ title, isMobile, onShowSideBar, onCreateNewC
         )}
       </div>
 
+      {/* 🚀 التعديل هني: ضفنا علامة BETA برتقالية فخمة يم العنوان 🚀 */}
       <div className='flex items-center justify-center space-x-2 flex-1'>
         <AppIcon size="small" />
         <div className="text-sm text-[#ECECEC] font-bold">{title}</div>
+        <span className="text-[10px] font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-2 py-0.5 rounded-full">
+          BETA
+        </span>
       </div>
 
       <div className='flex items-center justify-end space-x-3 w-24'>
