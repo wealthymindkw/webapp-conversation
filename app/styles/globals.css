@@ -12,7 +12,12 @@ html, body, #app-container, main {
 [class*="border-gray-"] { border-color: transparent !important; }
 
 /* 3. الشريط الجانبي والهيدر */
-aside, .sidebar, div[class*="w-[240px]"] { background-color: #171717 !important; }
+aside, .sidebar, div[class*="w-[240px]"] { 
+    background-color: #181818 !important; /* لون أغمق بشعرة عشان يبرز */
+    border-right: 1px solid rgba(255, 255, 255, 0.04) !important; /* خط شفاف جداً يفصل بينه وبين المحادثة */
+}
+
+/* باجي كود الهيدر خله نفس ما هو */
 header, div[class*="h-16"], div[class*="h-14"] { background-color: #212121 !important; }
 .bg-primary-50, div[class*="bg-primary-50"] { background-color: #2F2F2F !important; color: #ECECEC !important; border-radius: 8px !important; }
 .bg-white:not([class*="cl-"]), div[class*="bg-blue-100"]:not([class*="cl-"]) { background-color: transparent !important; }
