@@ -13,30 +13,31 @@ export interface IHeaderProps {
 
 const Header: FC<IHeaderProps> = ({ title, isMobile, onShowSideBar, onCreateNewChat }) => {
   return (
-    // 🚀 z-50 عشان يظل فوق المحادثة والزر ينضغط 🚀
-    <div className="shrink-0 flex items-center justify-between h-14 px-4 bg-transparent w-full relative z-50">
+    <div className="shrink-0 flex items-center justify-between h-14 px-3 pc:px-4 bg-transparent w-full relative z-50">
       
-      <div className="flex items-center justify-start w-24">
+      {/* الجانب الأيسر: زر القائمة صغرنا مساحته بالموبايل */}
+      <div className="flex items-center justify-start w-12 pc:w-24 shrink-0">
         {isMobile && (
           <div className='flex items-center justify-center h-8 w-8 cursor-pointer' onClick={() => onShowSideBar?.()}>
-            <Bars3Icon className="h-5 w-5 text-gray-400" />
+            <Bars3Icon className="h-6 w-6 text-gray-400 hover:text-white transition-colors" />
           </div>
         )}
       </div>
 
-      {/* 🚀 التعديل هني: ضفنا علامة BETA برتقالية فخمة يم العنوان 🚀 */}
-      <div className='flex items-center justify-center space-x-2 flex-1'>
+      {/* المنتصف: العنوان أخذ مساحته وصار مرتب */}
+      <div className='flex items-center justify-center space-x-1.5 pc:space-x-2 flex-1 overflow-hidden'>
         <AppIcon size="small" />
-        <div className="text-sm text-[#ECECEC] font-bold">{title}</div>
-        <span className="text-[10px] font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-2 py-0.5 rounded-full">
+        <div className="text-xs pc:text-sm text-[#ECECEC] font-bold truncate">{title}</div>
+        <span className="text-[9px] pc:text-[10px] font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-1.5 py-0.5 rounded-full shrink-0">
           BETA
         </span>
       </div>
 
-      <div className='flex items-center justify-end space-x-3 w-24'>
+      {/* الجانب الأيمن: زر المحادثة الجديدة */}
+      <div className='flex items-center justify-end space-x-2 pc:space-x-3 w-auto pc:w-24 shrink-0'>
         {isMobile && (
           <div className='flex items-center justify-center h-8 w-8 cursor-pointer' onClick={() => onCreateNewChat?.()} >
-            <PencilSquareIcon className="h-5 w-5 text-gray-400" />
+            <PencilSquareIcon className="h-6 w-6 text-gray-400 hover:text-white transition-colors" />
           </div>
         )}
         
