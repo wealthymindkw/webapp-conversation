@@ -340,20 +340,17 @@ const Main: FC<IMainProps> = () => {
         {/* Sidebar - ديسكتوب */}
         {!isMobile && renderSidebar()}
 
-        {/* Sidebar - موبايل: يبدأ من تحت الهيدر */}
+        {/* 🚀 السحر هني: السايد بار للموبايل صار يغطي الشاشة نفس ChatGPT 🚀 */}
         {isMobile && isShowSidebar && (
           <div
-            className='fixed z-50'
-            style={{
-              top: '3rem',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            }}
+            className='fixed inset-0 z-[99999] bg-black/60 backdrop-blur-sm transition-all'
             onClick={hideSidebar}
           >
-            <div className='inline-block h-full' onClick={e => e.stopPropagation()}>
+            {/* عرض السايد بار 260px مع لون غامق وظل فخم */}
+            <div 
+              className='inline-block h-full w-[260px] bg-[#171717] shadow-[10px_0_15px_-3px_rgba(0,0,0,0.5)]' 
+              onClick={e => e.stopPropagation()}
+            >
               {renderSidebar()}
             </div>
           </div>
