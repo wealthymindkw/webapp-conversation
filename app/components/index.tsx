@@ -258,11 +258,17 @@ const Main: FC<IMainProps> = () => {
           try {
             const newItem: any = await generationConversationName(allConversations[0].id)
             setConversationList(produce(allConversations, (draft: any) => { 
-              // 🚀 السحر هني: صلحنا مشكلة الاسم الفاضي! إذا السيستم ما قدر يولد اسم، راح ياخذ الاسم الافتراضي وما يخليها فاضية 🚀
-              draft[0].name = newItem?.name || allConversations[0]?.name || t('app.chat.newChatDefaultName') || 'New Conversation'
+              // 🚀 التعديل السحري: إذا السيستم فشل يولد اسم، ناخذ (أول 35 حرف من كلامك) ونخليها هي العنوان! 🚀
+              let finalName = newItem?.name || allConversations[0]?.name;
+              if (!finalName || finalName.trim() === '' || finalName === 'New chat') {
+                finalName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
+              }
+              draft[0].name = finalName;
             }) as any)
           } catch (error) {
-            setConversationList(allConversations)
+            setConversationList(produce(allConversations, (draft: any) => { 
+              draft[0].name = message.substring(0, 35) + (message.length > 35 ? '...' : '');
+            }) as any)
           }
         }
         setConversationIdChangeBecauseOfNew(false)
