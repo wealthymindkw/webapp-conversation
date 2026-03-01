@@ -45,7 +45,7 @@ const Sidebar: FC<ISidebarProps> = ({
       )}
 
       <nav className="mt-4 flex-1 space-y-1 bg-white p-4 !pt-0 overflow-hidden">
-        {list.map((item) => {
+        {list.map((item, index) => {
           const isCurrent = item.id === currentId
           const ItemIcon
             = isCurrent ? ChatBubbleOvalLeftEllipsisSolidIcon : ChatBubbleOvalLeftEllipsisIcon
@@ -69,9 +69,11 @@ const Sidebar: FC<ISidebarProps> = ({
                 )}
                 aria-hidden="true"
               />
-              {/* 🚀 السحر هني: الحارس اللي يمنع الأسماء الفاضية 🚀 */}
-              <span className="truncate">
-                {item.name && item.name.trim() !== '' ? item.name : 'محادثة جديدة'}
+              {/* 🚀 السحر هني: إذا العنوان فاضي، يرقمها عشان ما تتكرر، وإذا يديدة بياخذ كلامك 🚀 */}
+              <span className="truncate" dir="auto">
+                {item.name && item.name.trim() !== '' && item.name !== 'New chat' 
+                  ? item.name 
+                  : `محادثة ${list.length - index}`}
               </span>
             </div>
           )
