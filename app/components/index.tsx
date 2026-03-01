@@ -22,7 +22,7 @@ import { API_KEY, APP_ID, APP_INFO, isShowPrompt, promptTemplate } from '@/confi
 import type { Annotation as AnnotationType } from '@/types/log'
 import { addFileInfos, sortAgentSorts } from '@/utils/tools'
 
-// 🚀 الاستيراد الصحيح والنظيف مع renameConversation 🚀
+// 🚀 الاستيراد النظيف 🚀
 import { fetchAppParams, fetchChatList, fetchConversations, renameConversation, sendChatMessage, updateFeedback } from '@/service'
 
 export interface IMainProps {
@@ -248,7 +248,7 @@ const Main: FC<IMainProps> = () => {
         if (!isAgentMode) { responseItem.content = responseItem.content + message }
         else { const lastThought = responseItem.agent_thoughts?.[responseItem.agent_thoughts?.length - 1]; if (lastThought) { lastThought.thought = lastThought.thought + message } }
         if (messageId && !hasSetResponseId) { responseItem.id = messageId; hasSetResponseId = true }
-        if (isFirstMessage && newConversationId) { tempNewConversationId = newConversationId }
+        if (isFirstMessage && newConversationId) { tempNewConversationId = newConversationId } // 🚀 هذا هو الـ ID الدقيق 🚀
         setMessageTaskId(taskId)
         if (prevTempNewConversationId !== getCurrConversationId()) { setIsRespondingConCurrCon(false); return }
         updateCurrentQA({ responseItem, questionId, placeholderAnswerId, questionItem })
@@ -256,21 +256,32 @@ const Main: FC<IMainProps> = () => {
       async onCompleted(hasError?: boolean) {
         if (hasError) { return }
         if (getConversationIdChangeBecauseOfNew()) {
-          const { data: allConversations }: any = await fetchConversations()
           try {
-            // 🚀 السحر الحقيقي هني: لغينا دالة "التوليد التلقائي" بالكامل لأنها تخرب شغلنا! 🚀
-            // وقمنا ناخذ كلامك (أول 35 حرف) ونحفظه مباشرة بالسيرفر كعنوان للمحادثة من أول مرة.
+            // 1. نجهز الاسم الجديد من كلامك
             const finalName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
-            await renameConversation(allConversations[0].id, finalName);
+
+            // 2. 🚀 السحر هني: نعطي السيرفر أمر صارم يغير اسم المحادثة (بالـ ID الدقيق مالها مو العشوائي) 🚀
+            if (tempNewConversationId) {
+              await renameConversation(tempNewConversationId, finalName).catch(() => {});
+            }
+
+            // 3. نجيب لستة المحادثات المحدثة
+            const { data: allConversations }: any = await fetchConversations()
             
+            // 4. نحدث الواجهة قدام عينك بالاسم الصح
             setConversationList(produce(allConversations, (draft: any) => { 
-              draft[0].name = finalName;
+              const targetConv = draft.find((c: any) => c.id === tempNewConversationId);
+              if (targetConv) {
+                targetConv.name = finalName;
+              } else if (draft.length > 0) {
+                draft[0].name = finalName; // احتياط
+              }
             }) as any)
+
           } catch (error) {
-            const fallbackName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
-            setConversationList(produce(allConversations, (draft: any) => { 
-              draft[0].name = fallbackName;
-            }) as any)
+            // لو صار أي خطأ غريب، نعرض الاسم اللي كتبته كاحتياط
+            const { data: allConversations }: any = await fetchConversations()
+            setConversationList(allConversations)
           }
         }
         setConversationIdChangeBecauseOfNew(false)
