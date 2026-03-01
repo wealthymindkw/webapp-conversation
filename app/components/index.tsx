@@ -9,7 +9,6 @@ import Toast from '@/app/components/base/toast'
 import Sidebar from '@/app/components/sidebar'
 import ConfigSence from '@/app/components/config-scence'
 import Header from '@/app/components/header'
-import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, sendChatMessage, updateFeedback } from '@/service'
 import type { ChatItem, ConversationItem, Feedbacktype, PromptConfig, VisionFile, VisionSettings } from '@/types/app'
 import type { FileUpload } from '@/app/components/base/file-uploader-in-attachment/types'
 import { Resolution, TransferMethod, WorkflowRunningStatus } from '@/types/app'
@@ -22,6 +21,9 @@ import AppUnavailable from '@/app/components/app-unavailable'
 import { API_KEY, APP_ID, APP_INFO, isShowPrompt, promptTemplate } from '@/config'
 import type { Annotation as AnnotationType } from '@/types/log'
 import { addFileInfos, sortAgentSorts } from '@/utils/tools'
+
+// 🚀 الاستيراد الصحيح والنظيف مع renameConversation 🚀
+import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, renameConversation, sendChatMessage, updateFeedback } from '@/service'
 
 export interface IMainProps {
   params: any
@@ -256,18 +258,25 @@ const Main: FC<IMainProps> = () => {
         if (getConversationIdChangeBecauseOfNew()) {
           const { data: allConversations }: any = await fetchConversations()
           try {
+            // 1. نجرب نخلي السيستم يولد الاسم بروحه
             const newItem: any = await generationConversationName(allConversations[0].id)
+            let finalName = newItem?.name || allConversations[0]?.name;
+            
+            // 2. 🚀 إذا السيستم فشل ورجع الاسم فاضي، نغصبه يحفظ كلامك (أول 35 حرف) بالسيرفر! 🚀
+            if (!finalName || finalName.trim() === '' || finalName === 'New chat') {
+              finalName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
+              await renameConversation(allConversations[0].id, finalName).catch(() => {});
+            }
+            
             setConversationList(produce(allConversations, (draft: any) => { 
-              // 🚀 التعديل السحري: إذا السيستم فشل يولد اسم، ناخذ (أول 35 حرف من كلامك) ونخليها هي العنوان! 🚀
-              let finalName = newItem?.name || allConversations[0]?.name;
-              if (!finalName || finalName.trim() === '' || finalName === 'New chat') {
-                finalName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
-              }
               draft[0].name = finalName;
             }) as any)
           } catch (error) {
+            // لو صار إيرور بالسيرفر، بعد نغصبه يحفظ كلامك
+            const fallbackName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
+            await renameConversation(allConversations[0].id, fallbackName).catch(() => {});
             setConversationList(produce(allConversations, (draft: any) => { 
-              draft[0].name = message.substring(0, 35) + (message.length > 35 ? '...' : '');
+              draft[0].name = fallbackName;
             }) as any)
           }
         }
