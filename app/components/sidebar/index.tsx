@@ -44,7 +44,7 @@ const Sidebar: FC<ISidebarProps> = ({
         </div>
       )}
 
-      <nav className="mt-4 flex-1 space-y-1 bg-white p-4 !pt-0">
+      <nav className="mt-4 flex-1 space-y-1 bg-white p-4 !pt-0 overflow-hidden">
         {list.map((item) => {
           const isCurrent = item.id === currentId
           const ItemIcon
@@ -57,7 +57,7 @@ const Sidebar: FC<ISidebarProps> = ({
                 isCurrent
                   ? 'bg-primary-50 text-primary-600'
                   : 'text-gray-700 hover:bg-gray-100 hover:text-gray-700',
-                'group flex items-center rounded-md px-2 py-2 text-sm font-medium cursor-pointer',
+                'group flex items-center rounded-md px-2 py-2 text-sm font-medium cursor-pointer overflow-hidden',
               )}
             >
               <ItemIcon
@@ -69,7 +69,10 @@ const Sidebar: FC<ISidebarProps> = ({
                 )}
                 aria-hidden="true"
               />
-              {item.name}
+              {/* 🚀 السحر هني: الحارس اللي يمنع الأسماء الفاضية 🚀 */}
+              <span className="truncate">
+                {item.name && item.name.trim() !== '' ? item.name : 'محادثة جديدة'}
+              </span>
             </div>
           )
         })}
@@ -89,8 +92,7 @@ const Sidebar: FC<ISidebarProps> = ({
         </a>
 
         <a
-          href="https://wealthymindme.com/call
-"
+          href="https://wealthymindme.com/call"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center px-4 py-2 text-sm text-[#C5A059] bg-transparent border border-[#C5A059] rounded-md hover:bg-[#C5A05922] transition-colors font-serif text-center !border-opacity-50 !border-[0.5px]"
