@@ -23,7 +23,7 @@ import type { Annotation as AnnotationType } from '@/types/log'
 import { addFileInfos, sortAgentSorts } from '@/utils/tools'
 
 // 🚀 الاستيراد الصحيح والنظيف مع renameConversation 🚀
-import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, renameConversation, sendChatMessage, updateFeedback } from '@/service'
+import { fetchAppParams, fetchChatList, fetchConversations, renameConversation, sendChatMessage, updateFeedback } from '@/service'
 
 export interface IMainProps {
   params: any
@@ -258,23 +258,16 @@ const Main: FC<IMainProps> = () => {
         if (getConversationIdChangeBecauseOfNew()) {
           const { data: allConversations }: any = await fetchConversations()
           try {
-            // 1. نجرب نخلي السيستم يولد الاسم بروحه
-            const newItem: any = await generationConversationName(allConversations[0].id)
-            let finalName = newItem?.name || allConversations[0]?.name;
-            
-            // 2. 🚀 إذا السيستم فشل ورجع الاسم فاضي، نغصبه يحفظ كلامك (أول 35 حرف) بالسيرفر! 🚀
-            if (!finalName || finalName.trim() === '' || finalName === 'New chat') {
-              finalName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
-              await renameConversation(allConversations[0].id, finalName).catch(() => {});
-            }
+            // 🚀 السحر الحقيقي هني: لغينا دالة "التوليد التلقائي" بالكامل لأنها تخرب شغلنا! 🚀
+            // وقمنا ناخذ كلامك (أول 35 حرف) ونحفظه مباشرة بالسيرفر كعنوان للمحادثة من أول مرة.
+            const finalName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
+            await renameConversation(allConversations[0].id, finalName);
             
             setConversationList(produce(allConversations, (draft: any) => { 
               draft[0].name = finalName;
             }) as any)
           } catch (error) {
-            // لو صار إيرور بالسيرفر، بعد نغصبه يحفظ كلامك
             const fallbackName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
-            await renameConversation(allConversations[0].id, fallbackName).catch(() => {});
             setConversationList(produce(allConversations, (draft: any) => { 
               draft[0].name = fallbackName;
             }) as any)
