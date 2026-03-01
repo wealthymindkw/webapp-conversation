@@ -255,8 +255,15 @@ const Main: FC<IMainProps> = () => {
         if (hasError) { return }
         if (getConversationIdChangeBecauseOfNew()) {
           const { data: allConversations }: any = await fetchConversations()
-          const newItem: any = await generationConversationName(allConversations[0].id)
-          setConversationList(produce(allConversations, (draft: any) => { draft[0].name = newItem.name }) as any)
+          try {
+            const newItem: any = await generationConversationName(allConversations[0].id)
+            setConversationList(produce(allConversations, (draft: any) => { 
+              // 🚀 السحر هني: صلحنا مشكلة الاسم الفاضي! إذا السيستم ما قدر يولد اسم، راح ياخذ الاسم الافتراضي وما يخليها فاضية 🚀
+              draft[0].name = newItem?.name || allConversations[0]?.name || t('app.chat.newChatDefaultName') || 'New Conversation'
+            }) as any)
+          } catch (error) {
+            setConversationList(allConversations)
+          }
         }
         setConversationIdChangeBecauseOfNew(false)
         resetNewConversationInputs()
@@ -340,13 +347,12 @@ const Main: FC<IMainProps> = () => {
         {/* Sidebar - ديسكتوب */}
         {!isMobile && renderSidebar()}
 
-        {/* 🚀 السحر هني: السايد بار للموبايل صار يغطي الشاشة نفس ChatGPT 🚀 */}
+        {/* Sidebar - موبايل */}
         {isMobile && isShowSidebar && (
           <div
             className='fixed inset-0 z-[99999] bg-black/60 backdrop-blur-sm transition-all'
             onClick={hideSidebar}
           >
-            {/* عرض السايد بار 260px مع لون غامق وظل فخم */}
             <div 
               className='inline-block h-full w-[260px] bg-[#171717] shadow-[10px_0_15px_-3px_rgba(0,0,0,0.5)]' 
               onClick={e => e.stopPropagation()}
