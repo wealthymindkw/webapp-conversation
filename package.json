@@ -13,6 +13,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.90.0",
     "@clerk/nextjs": "^6.0.0",
     "@floating-ui/react": "^0.26.25",
     "@formatjs/intl-localematcher": "^0.5.6",
