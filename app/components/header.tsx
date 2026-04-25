@@ -36,7 +36,7 @@ const Header: FC<IHeaderProps> = ({ title, isMobile, onShowSideBar, onCreateNewC
         )}
       </div>
 
-      {/* Center: app icon + title + badge */}
+      {/* Center: app icon + title */}
       <div className="flex items-center justify-center gap-2 flex-1 overflow-hidden">
         <div className="shrink-0">
           <AppIcon size="small" />
@@ -47,30 +47,17 @@ const Header: FC<IHeaderProps> = ({ title, isMobile, onShowSideBar, onCreateNewC
         >
           {title}
         </span>
-        <span
-          className="shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full"
-          style={{
-            color: '#C5A059',
-            backgroundColor: 'rgba(197,160,89,0.12)',
-            border: '1px solid rgba(197,160,89,0.25)',
-            letterSpacing: '0.06em',
-          }}
-        >
-          BETA
-        </span>
       </div>
 
-      {/* Right: new chat (mobile) + auth */}
+      {/* Right: new chat + auth */}
       <div className="flex items-center justify-end gap-2 w-10 pc:w-28 shrink-0">
-        {isMobile && (
-          <button
-            className="flex items-center justify-center h-9 w-9 rounded-xl cursor-pointer transition-colors hover:bg-white/5"
-            onClick={() => onCreateNewChat?.()}
-            aria-label="محادثة جديدة"
-          >
-            <PencilSquareIcon className="h-5 w-5" style={{ color: '#9A9A9A' }} />
-          </button>
-        )}
+        <button
+          className="flex items-center justify-center h-9 w-9 rounded-xl cursor-pointer transition-colors hover:bg-white/5"
+          onClick={() => onCreateNewChat?.()}
+          aria-label="محادثة جديدة"
+        >
+          <PencilSquareIcon className="h-5 w-5" style={{ color: '#9A9A9A' }} />
+        </button>
 
         <SignedOut>
           <SignInButton mode="modal">
