@@ -180,7 +180,7 @@ const Sidebar: FC<ISidebarProps> = ({
             }}
           >
             <CalendarIcon />
-            <span dir="rtl">انضم في التحدي القادم</span>
+            <span dir="rtl">انضم للورشة القادمة</span>
           </a>
 
           {/* Free Call */}
