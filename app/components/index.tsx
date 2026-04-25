@@ -22,7 +22,7 @@ import { API_KEY, APP_ID, APP_INFO, isShowPrompt, promptTemplate } from '@/confi
 import type { Annotation as AnnotationType } from '@/types/log'
 import { addFileInfos, sortAgentSorts } from '@/utils/tools'
 
-import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, sendChatMessage, updateFeedback } from '@/service'
+import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, renameConversation, sendChatMessage, updateFeedback } from '@/service'
 
 export interface IMainProps {
   params: any
@@ -254,36 +254,52 @@ const Main: FC<IMainProps> = () => {
       },
       async onCompleted(hasError?: boolean) {
         if (hasError) { return }
-        if (getConversationIdChangeBecauseOfNew()) {
-          try {
-            // Fallback: first 35 chars of user's message
-            let finalName = message.substring(0, 35) + (message.length > 35 ? '...' : '')
 
-            if (tempNewConversationId) {
-              // Ask Dify AI to generate a proper conversation title
-              try {
-                const nameResult: any = await generationConversationName(tempNewConversationId)
-                const aiName = nameResult?.name || nameResult?.data?.name
-                if (aiName && aiName.trim() !== '' && aiName !== 'New chat' && aiName !== 'New conversation')
-                  finalName = aiName
+        if (getConversationIdChangeBecauseOfNew() && tempNewConversationId) {
+          // Build display name from user's first message immediately
+          const finalName = message.substring(0, 40) + (message.length > 40 ? '...' : '')
+
+          // 1. Update local list instantly — no API round-trip needed
+          setConversationList((currentList: any) =>
+            produce(currentList, (draft: any) => {
+              // Replace the '-1' placeholder with the real conversation
+              const placeholderIdx = draft.findIndex((c: any) => c.id === '-1')
+              const existing = draft.find((c: any) => c.id === tempNewConversationId)
+              if (existing) {
+                existing.name = finalName
+                if (placeholderIdx !== -1) draft.splice(placeholderIdx, 1)
               }
-              catch { /* keep fallback name */ }
-            }
+              else {
+                const newEntry = { id: tempNewConversationId, name: finalName, inputs: {}, introduction: '' }
+                if (placeholderIdx !== -1) draft.splice(placeholderIdx, 1, newEntry)
+                else draft.unshift(newEntry)
+              }
+            }),
+          )
 
-            const { data: allConversations }: any = await fetchConversations()
-            setConversationList(produce(allConversations, (draft: any) => {
-              const targetConv = draft.find((c: any) => c.id === tempNewConversationId)
-              if (targetConv)
-                targetConv.name = finalName
-              else if (draft.length > 0)
-                draft[0].name = finalName
-            }) as any)
-          }
-          catch {
-            const { data: allConversations }: any = await fetchConversations()
-            setConversationList(allConversations)
-          }
+          // 2. Persist the name to server in background (non-blocking)
+          renameConversation(tempNewConversationId, finalName).catch(() => {})
+
+          // 3. Try Dify AI auto-naming; if it produces something better, refresh
+          generationConversationName(tempNewConversationId)
+            .then((res: any) => {
+              const aiName: string = res?.name || res?.data?.name || ''
+              const cleanAiName = aiName.trim()
+              const isDefault = !cleanAiName
+                || cleanAiName.toLowerCase() === 'new chat'
+                || cleanAiName.toLowerCase() === 'new conversation'
+              if (!isDefault && cleanAiName !== finalName) {
+                setConversationList((currentList: any) =>
+                  produce(currentList, (draft: any) => {
+                    const target = draft.find((c: any) => c.id === tempNewConversationId)
+                    if (target) target.name = cleanAiName
+                  }),
+                )
+              }
+            })
+            .catch(() => {}) // silently ignore if Dify AI naming not available
         }
+
         setConversationIdChangeBecauseOfNew(false)
         resetNewConversationInputs()
         setChatNotStarted()
