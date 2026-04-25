@@ -22,8 +22,7 @@ import { API_KEY, APP_ID, APP_INFO, isShowPrompt, promptTemplate } from '@/confi
 import type { Annotation as AnnotationType } from '@/types/log'
 import { addFileInfos, sortAgentSorts } from '@/utils/tools'
 
-// 🚀 الاستيراد النظيف 🚀
-import { fetchAppParams, fetchChatList, fetchConversations, renameConversation, sendChatMessage, updateFeedback } from '@/service'
+import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, sendChatMessage, updateFeedback } from '@/service'
 
 export interface IMainProps {
   params: any
@@ -257,29 +256,30 @@ const Main: FC<IMainProps> = () => {
         if (hasError) { return }
         if (getConversationIdChangeBecauseOfNew()) {
           try {
-            // 1. نجهز الاسم الجديد من كلامك
-            const finalName = message.substring(0, 35) + (message.length > 35 ? '...' : '');
+            // Fallback: first 35 chars of user's message
+            let finalName = message.substring(0, 35) + (message.length > 35 ? '...' : '')
 
-            // 2. 🚀 السحر هني: نعطي السيرفر أمر صارم يغير اسم المحادثة (بالـ ID الدقيق مالها مو العشوائي) 🚀
             if (tempNewConversationId) {
-              await renameConversation(tempNewConversationId, finalName).catch(() => {});
+              // Ask Dify AI to generate a proper conversation title
+              try {
+                const nameResult: any = await generationConversationName(tempNewConversationId)
+                const aiName = nameResult?.name || nameResult?.data?.name
+                if (aiName && aiName.trim() !== '' && aiName !== 'New chat' && aiName !== 'New conversation')
+                  finalName = aiName
+              }
+              catch { /* keep fallback name */ }
             }
 
-            // 3. نجيب لستة المحادثات المحدثة
             const { data: allConversations }: any = await fetchConversations()
-            
-            // 4. نحدث الواجهة قدام عينك بالاسم الصح
-            setConversationList(produce(allConversations, (draft: any) => { 
-              const targetConv = draft.find((c: any) => c.id === tempNewConversationId);
-              if (targetConv) {
-                targetConv.name = finalName;
-              } else if (draft.length > 0) {
-                draft[0].name = finalName; // احتياط
-              }
+            setConversationList(produce(allConversations, (draft: any) => {
+              const targetConv = draft.find((c: any) => c.id === tempNewConversationId)
+              if (targetConv)
+                targetConv.name = finalName
+              else if (draft.length > 0)
+                draft[0].name = finalName
             }) as any)
-
-          } catch (error) {
-            // لو صار أي خطأ غريب، نعرض الاسم اللي كتبته كاحتياط
+          }
+          catch {
             const { data: allConversations }: any = await fetchConversations()
             setConversationList(allConversations)
           }

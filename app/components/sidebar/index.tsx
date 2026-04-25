@@ -13,6 +13,15 @@ function cn(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 
+const DEFAULT_NAMES = new Set([
+  '', 'new chat', 'new conversation', 'محادثة جديدة', 'new conversation name',
+])
+
+function isDefaultName(name?: string) {
+  if (!name) return true
+  return DEFAULT_NAMES.has(name.trim().toLowerCase())
+}
+
 const MAX_CONVERSATION_LENTH = 20
 
 export interface ISidebarProps {
@@ -119,9 +128,9 @@ const Sidebar: FC<ISidebarProps> = ({
             >
               <ItemIcon className="h-4 w-4 shrink-0 opacity-70" />
               <span className="truncate font-medium leading-snug" dir="auto">
-                {item.name && item.name.trim() !== '' && item.name !== 'New chat'
-                  ? item.name
-                  : `محادثة ${list.length - index}`}
+                {isDefaultName(item.name)
+                  ? `محادثة ${list.length - index}`
+                  : item.name}
               </span>
             </div>
           )
