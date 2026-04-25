@@ -28,6 +28,11 @@ export interface IMainProps {
   params: any
 }
 
+const isDefaultConvName = (name?: string | null) => {
+  const n = (name || '').trim().toLowerCase()
+  return !n || n === 'new chat' || n === 'new conversation' || n === 'محادثة جديدة'
+}
+
 const Main: FC<IMainProps> = () => {
   const { t } = useTranslation()
   const media = useBreakpoints()
@@ -173,6 +178,26 @@ const Main: FC<IMainProps> = () => {
         setConversationList(conversations as ConversationItem[])
         if (isNotNewConversation) { setCurrConversationId(_conversationId, APP_ID, false) }
         setInited(true)
+
+        // Background: auto-generate names for old unnamed conversations
+        const unnamed = (conversations as ConversationItem[]).filter(c => isDefaultConvName(c.name))
+        if (unnamed.length > 0) {
+          ;(async () => {
+            for (const conv of unnamed.slice(0, 15)) {
+              try {
+                const result: any = await generationConversationName(conv.id)
+                const aiName = (result?.name || '').trim()
+                if (aiName && !isDefaultConvName(aiName)) {
+                  setConversationList((prev: ConversationItem[]) =>
+                    prev.map(c => c.id === conv.id ? { ...c, name: aiName } : c),
+                  )
+                }
+              }
+              catch {}
+              await new Promise(r => setTimeout(r, 600))
+            }
+          })()
+        }
       }
       catch (e: any) {
         if (e.status === 404) { setAppUnavailable(true) }
@@ -256,48 +281,39 @@ const Main: FC<IMainProps> = () => {
         if (hasError) { return }
 
         if (getConversationIdChangeBecauseOfNew() && tempNewConversationId) {
-          // Build display name from user's first message immediately
-          const finalName = message.substring(0, 40) + (message.length > 40 ? '...' : '')
+          const fallbackName = message.substring(0, 40) + (message.length > 40 ? '...' : '')
 
-          // 1. Update local list instantly — no API round-trip needed
-          setConversationList((currentList: any) =>
-            produce(currentList, (draft: any) => {
-              // Replace the '-1' placeholder with the real conversation
-              const placeholderIdx = draft.findIndex((c: any) => c.id === '-1')
-              const existing = draft.find((c: any) => c.id === tempNewConversationId)
-              if (existing) {
-                existing.name = finalName
-                if (placeholderIdx !== -1) draft.splice(placeholderIdx, 1)
-              }
-              else {
-                const newEntry = { id: tempNewConversationId, name: finalName, inputs: {}, introduction: '' }
-                if (placeholderIdx !== -1) draft.splice(placeholderIdx, 1, newEntry)
-                else draft.unshift(newEntry)
-              }
-            }),
-          )
+          // 1. AWAIT rename so it's saved before anything else
+          await renameConversation(tempNewConversationId, fallbackName).catch(() => {})
 
-          // 2. Persist the name to server in background (non-blocking)
-          renameConversation(tempNewConversationId, finalName).catch(() => {})
-
-          // 3. Try Dify AI auto-naming; if it produces something better, refresh
-          generationConversationName(tempNewConversationId)
-            .then((res: any) => {
-              const aiName: string = res?.name || res?.data?.name || ''
-              const cleanAiName = aiName.trim()
-              const isDefault = !cleanAiName
-                || cleanAiName.toLowerCase() === 'new chat'
-                || cleanAiName.toLowerCase() === 'new conversation'
-              if (!isDefault && cleanAiName !== finalName) {
-                setConversationList((currentList: any) =>
-                  produce(currentList, (draft: any) => {
-                    const target = draft.find((c: any) => c.id === tempNewConversationId)
-                    if (target) target.name = cleanAiName
-                  }),
-                )
-              }
-            })
-            .catch(() => {}) // silently ignore if Dify AI naming not available
+          // 2. Fetch fresh list — the server should now have the correct name
+          const freshData: any = await fetchConversations().catch(() => null)
+          if (freshData?.data?.length) {
+            setConversationList(produce(freshData.data, (draft: any) => {
+              const target = draft.find((c: any) => c.id === tempNewConversationId)
+              // If server still returned a default name, force our fallback
+              if (target && isDefaultConvName(target.name))
+                target.name = fallbackName
+            }) as any)
+          }
+          else {
+            // Server fetch failed — update locally
+            setConversationList((currentList: any) =>
+              produce(currentList, (draft: any) => {
+                const placeholderIdx = draft.findIndex((c: any) => c.id === '-1')
+                const existing = draft.find((c: any) => c.id === tempNewConversationId)
+                if (existing) {
+                  if (isDefaultConvName(existing.name)) existing.name = fallbackName
+                  if (placeholderIdx !== -1) draft.splice(placeholderIdx, 1)
+                }
+                else {
+                  const newEntry = { id: tempNewConversationId, name: fallbackName, inputs: {}, introduction: '' }
+                  if (placeholderIdx !== -1) draft.splice(placeholderIdx, 1, newEntry)
+                  else draft.unshift(newEntry)
+                }
+              }),
+            )
+          }
         }
 
         setConversationIdChangeBecauseOfNew(false)
